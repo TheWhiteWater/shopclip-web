@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { Car, LayoutDashboard, GitCompare, Settings, LogOut } from 'lucide-react';
+import { ShoppingBag, LayoutDashboard, GitCompare, Settings, LogOut } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
@@ -19,15 +19,15 @@ export default function DashboardLayout({
       <header className="bg-white border-b sticky top-0 z-50">
         <div className="flex items-center justify-between px-4 py-3">
           <Link href="/" className="flex items-center gap-2">
-            <Car className="h-6 w-6 text-blue-600" />
-            <span className="font-bold">CarScout</span>
+            <ShoppingBag className="h-6 w-6 text-blue-600" />
+            <span className="font-bold">ShopClip</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">
             <Link href="/dashboard">
               <Button variant="ghost" size="sm" className="gap-2">
                 <LayoutDashboard className="h-4 w-4" />
-                Listings
+                Items
               </Button>
             </Link>
             <Link href="/dashboard/compare">

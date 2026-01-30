@@ -1,28 +1,33 @@
 import { Metadata } from 'next';
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://carscout.app';
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://shopclip.app';
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'CarScout - Compare Car Listings Across New Zealand',
-    template: '%s | CarScout',
+    default: 'ShopClip - Save & Compare Products From Any Website',
+    template: '%s | ShopClip',
   },
   description:
-    'Save and compare car listings from TradeMe in one place. Track price changes, compare vehicles side-by-side, and find your perfect car in New Zealand.',
+    'Save and compare products from any website. Like Grammarly for text or Honey for discounts — but for shopping. Works on Facebook Marketplace, Amazon, eBay, IKEA, and more.',
   keywords: [
-    'car comparison NZ',
-    'TradeMe cars',
-    'compare car listings',
-    'New Zealand used cars',
-    'car price tracker',
-    'vehicle comparison tool',
-    'TradeMe Motors',
-    'buy used car NZ',
+    'product comparison',
+    'compare products',
+    'price tracker',
+    'shopping comparison tool',
+    'Facebook Marketplace',
+    'Amazon',
+    'eBay',
+    'IKEA',
+    'buy online',
+    'shopping assistant',
+    'cross platform shopping comparison',
+    'save products',
+    'shopping clipboard',
   ],
-  authors: [{ name: 'CarScout' }],
-  creator: 'CarScout',
-  publisher: 'CarScout',
+  authors: [{ name: 'ShopClip' }],
+  creator: 'ShopClip',
+  publisher: 'ShopClip',
   robots: {
     index: true,
     follow: true,
@@ -36,37 +41,37 @@ export const defaultMetadata: Metadata = {
   },
   openGraph: {
     type: 'website',
-    locale: 'en_NZ',
+    locale: 'en',
     url: BASE_URL,
-    siteName: 'CarScout',
-    title: 'CarScout - Compare Car Listings Across New Zealand',
+    siteName: 'ShopClip',
+    title: 'ShopClip - Save & Compare Products From Any Website',
     description:
-      'Save and compare car listings from TradeMe in one place. Track price changes and find your perfect car.',
+      'Like Grammarly for text or Honey for discounts — but for shopping. Save products from Facebook, Amazon, eBay, and more. Compare side-by-side.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'CarScout - Compare Car Listings',
+        alt: 'ShopClip - Save & Compare Products From Any Website',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'CarScout - Compare Car Listings Across New Zealand',
+    title: 'ShopClip - Save & Compare Products From Any Website',
     description:
-      'Save and compare car listings from TradeMe. Track price changes and find your perfect car.',
+      'Like Grammarly for text or Honey for discounts — but for shopping. Compare products from any website.',
     images: ['/og-image.png'],
   },
   alternates: {
     canonical: BASE_URL,
     languages: {
-      'en-NZ': BASE_URL,
+      'en': BASE_URL,
+      'en-NZ': `${BASE_URL}/nz`,
+      'en-AU': `${BASE_URL}/au`,
+      'en-GB': `${BASE_URL}/uk`,
+      'en-US': `${BASE_URL}/us`,
     },
-  },
-  other: {
-    'geo.region': 'NZ',
-    'geo.placename': 'New Zealand',
   },
 };
 
@@ -79,8 +84,8 @@ export function getHomePageJsonLd() {
         '@type': 'WebSite',
         '@id': `${BASE_URL}/#website`,
         url: BASE_URL,
-        name: 'CarScout',
-        description: 'Compare car listings across New Zealand',
+        name: 'ShopClip',
+        description: 'Save and compare products from any website worldwide',
         publisher: {
           '@id': `${BASE_URL}/#organization`,
         },
@@ -88,7 +93,7 @@ export function getHomePageJsonLd() {
       {
         '@type': 'Organization',
         '@id': `${BASE_URL}/#organization`,
-        name: 'CarScout',
+        name: 'ShopClip',
         url: BASE_URL,
         logo: {
           '@type': 'ImageObject',
@@ -99,33 +104,58 @@ export function getHomePageJsonLd() {
       {
         '@type': 'SoftwareApplication',
         '@id': `${BASE_URL}/#software`,
-        name: 'CarScout',
+        name: 'ShopClip',
         applicationCategory: 'UtilitiesApplication',
-        operatingSystem: 'Web, Chrome',
+        operatingSystem: 'Web, Chrome, Edge, Brave, Opera',
         description:
-          'Chrome extension and web dashboard for comparing car listings from TradeMe New Zealand',
-        offers: {
-          '@type': 'Offer',
-          price: '0',
-          priceCurrency: 'NZD',
-          description: 'Free tier with 25 listings',
-        },
+          'Browser extension and web dashboard for saving and comparing products from any website. Works on Facebook Marketplace, Amazon, eBay, IKEA, and more.',
+        offers: [
+          {
+            '@type': 'Offer',
+            price: '0',
+            priceCurrency: 'USD',
+            description: 'Free: 4 slots to save products from any platform',
+          },
+          {
+            '@type': 'Offer',
+            price: '9.99',
+            priceCurrency: 'USD',
+            description: '5 slots pack - $2 per save',
+          },
+          {
+            '@type': 'Offer',
+            price: '14.99',
+            priceCurrency: 'USD',
+            description: '10 slots pack - $1.50 per save (best value)',
+          },
+          {
+            '@type': 'Offer',
+            price: '24.99',
+            priceCurrency: 'USD',
+            description: '25 slots pack - $1 per save',
+          },
+        ],
         featureList: [
-          'Save car listings with one click',
-          'Compare vehicles side-by-side',
+          'Save products from any website with one click',
+          'Compare items side-by-side from different platforms',
           'Track price changes over time',
-          'Filter and sort listings',
+          'Works on Facebook Marketplace, Amazon, eBay, IKEA, and more',
+          'Notes and tags for organization',
+          'Cloud sync across devices',
           'Export to CSV',
+          'Universal shopping clipboard',
         ],
         screenshot: `${BASE_URL}/screenshot.png`,
-        softwareVersion: '1.0.0',
+        softwareVersion: '2.0.0',
         author: {
           '@id': `${BASE_URL}/#organization`,
         },
-        areaServed: {
-          '@type': 'Country',
-          name: 'New Zealand',
-        },
+        areaServed: [
+          { '@type': 'Country', name: 'New Zealand' },
+          { '@type': 'Country', name: 'Australia' },
+          { '@type': 'Country', name: 'United Kingdom' },
+          { '@type': 'Country', name: 'United States' },
+        ],
       },
     ],
   };
@@ -139,26 +169,26 @@ export function getFaqJsonLd() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'How do I compare cars from TradeMe?',
+        name: 'What websites does ShopClip work with?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Install the CarScout Chrome extension, browse TradeMe car listings, and click "Save to CarScout" on any listing you want to compare. All saved listings appear in your dashboard where you can compare them side-by-side.',
+          text: 'ShopClip works on virtually any shopping website worldwide including Facebook Marketplace, Amazon, eBay, IKEA, Craigslist, local marketplaces, and dealer websites. We support any site with products to save.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Is CarScout free to use?',
+        name: 'Is ShopClip free to use?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes! CarScout offers a free tier that lets you save up to 25 car listings. For unlimited listings, price history tracking, and CSV export, upgrade to CarScout Pro for $5.99/month.',
+          text: 'Yes! ShopClip gives you 4 free slots to save products from ANY platform. That\'s enough to compare items from different websites. Need more? Buy slot packs starting at $9.99 for 5 slots. No subscription required.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Does CarScout work with Facebook Marketplace?',
+        name: 'Can I compare products from different websites?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Currently, CarScout supports TradeMe Motors listings. Support for Facebook Marketplace and other platforms is planned for future updates.',
+          text: "Yes! That's ShopClip's superpower. Found a product on Amazon and another on Facebook? Save both and compare them side-by-side in your dashboard — price, features, everything.",
         },
       },
       {
@@ -166,15 +196,15 @@ export function getFaqJsonLd() {
         name: 'How does price tracking work?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: "When you save a listing multiple times, CarScout tracks price changes automatically. You'll see if the price went up or down since you first saved it, helping you spot good deals.",
+          text: "When you save a product multiple times, ShopClip tracks price changes automatically. You'll see if the price went up or down since you first saved it, helping you spot deals.",
         },
       },
       {
         '@type': 'Question',
-        name: 'Is my data secure?',
+        name: 'Which browsers are supported?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes. Your data is stored securely in our cloud database. We never share your saved listings with anyone. You can delete your account and all data at any time.',
+          text: "ShopClip works on all Chromium-based browsers: Chrome, Edge, Brave, Opera, Arc, and Vivaldi. That's 83% of browser users. Firefox and Safari support coming soon.",
         },
       },
     ],

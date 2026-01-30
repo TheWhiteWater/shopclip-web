@@ -5,7 +5,7 @@ import { useSearchParams } from 'next/navigation';
 import { createClient } from '@/lib/supabase/client';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Car, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
+import { ShoppingBag, CheckCircle, Loader2, AlertCircle } from 'lucide-react';
 import type { User } from '@supabase/supabase-js';
 
 function ExtensionAuthContent() {
@@ -109,7 +109,7 @@ function ExtensionAuthContent() {
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-slate-600">
-            This page should be opened from the CarScout extension.
+            This page should be opened from the ShopClip extension.
           </p>
         </CardContent>
       </Card>
@@ -159,12 +159,12 @@ function ExtensionAuthContent() {
     <Card className="w-full max-w-md">
       <CardHeader className="text-center">
         <div className="flex items-center justify-center gap-2 mb-4">
-          <Car className="h-8 w-8 text-blue-600" />
-          <span className="text-xl font-bold">CarScout</span>
+          <ShoppingBag className="h-8 w-8 text-blue-600" />
+          <span className="text-xl font-bold">ShopClip</span>
         </div>
         <CardTitle>Connect Extension</CardTitle>
         <p className="text-sm text-slate-500 mt-2">
-          Sign in to connect your CarScout extension
+          Sign in to connect your ShopClip extension
         </p>
       </CardHeader>
 
@@ -180,7 +180,7 @@ function ExtensionAuthContent() {
         </Button>
 
         <p className="text-xs text-slate-500 text-center mt-6">
-          Your CarScout account will be linked to the browser extension.
+          Your ShopClip account will be linked to the browser extension.
         </p>
       </CardContent>
     </Card>

@@ -2,29 +2,34 @@ import type { Metadata } from 'next';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
-import { Car, CheckCircle2, X } from 'lucide-react';
+import { ShoppingBag, CheckCircle2, Zap } from 'lucide-react';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Pricing',
   description:
-    'CarScout pricing plans. Start free with 25 listings or upgrade to Pro for unlimited listings, price tracking, and CSV export. Simple pricing, no hidden fees.',
+    'ShopClip pricing. Start with 4 free saves. Buy more slots as you need them: 5 for $9.99, 10 for $14.99, 25 for $24.99. No subscription required.',
   openGraph: {
-    title: 'Pricing | CarScout',
+    title: 'Pricing | ShopClip',
     description:
-      'Compare car listings from TradeMe. Free tier includes 25 listings. Pro includes unlimited listings, price history, and CSV export for $5.99/month.',
+      'Pay for what you use. 4 free saves to start. Buy more slots when you need them. No monthly subscription.',
   },
 };
 
-const features = [
-  { name: 'Saved listings', free: '25 listings', pro: 'Unlimited' },
-  { name: 'Side-by-side comparison', free: true, pro: true },
-  { name: 'Basic filters (price, year, km)', free: true, pro: true },
-  { name: 'Advanced filters', free: false, pro: true },
-  { name: 'Price history tracking', free: false, pro: true },
-  { name: 'Price change notifications', free: false, pro: true },
-  { name: 'CSV export', free: false, pro: true },
-  { name: 'Priority support', free: false, pro: true },
+const slotPackages = [
+  { slots: 5, price: 9.99, perSlot: 2.0 },
+  { slots: 10, price: 14.99, perSlot: 1.5, popular: true },
+  { slots: 25, price: 24.99, perSlot: 1.0 },
+];
+
+const includedFeatures = [
+  'Save from ALL platforms',
+  'Side-by-side comparison',
+  'Price tracking (90 days)',
+  'Notes & tags',
+  'Cloud sync',
+  'CSV export',
+  'Share link',
 ];
 
 export default function PricingPage() {
@@ -34,8 +39,8 @@ export default function PricingPage() {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Car className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">CarScout</span>
+            <ShoppingBag className="h-8 w-8 text-blue-600" />
+            <span className="text-xl font-bold">ShopClip</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/#features" className="text-sm hover:text-blue-600">
@@ -67,168 +72,184 @@ export default function PricingPage() {
       {/* Hero */}
       <section className="container mx-auto px-4 py-16 text-center">
         <h1 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-          Simple, Transparent Pricing
+          Pay For What You Use
         </h1>
         <p className="text-xl text-slate-600 max-w-2xl mx-auto">
-          Start free with everything you need to compare cars. Upgrade to Pro
-          when you need more power.
+          No subscription. Buy slots when you need them.
+          <br />
+          Like buying research credits.
         </p>
       </section>
 
-      {/* Pricing Cards */}
-      <section className="container mx-auto px-4 pb-16">
-        <div className="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
-          {/* Free Tier */}
-          <Card className="relative">
-            <CardHeader>
-              <CardTitle className="text-2xl">Free</CardTitle>
-              <p className="text-4xl font-bold mt-2">
-                $0
-                <span className="text-base font-normal text-slate-600">
-                  /month
-                </span>
-              </p>
-              <p className="text-slate-600 text-sm mt-2">
-                Perfect for casual car shoppers
-              </p>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Up to 25 saved listings</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Side-by-side comparison</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Basic filters (price, year, km)</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Chrome extension access</span>
-                </li>
-              </ul>
-              <Link href="/login" className="block">
-                <Button variant="outline" className="w-full" size="lg">
-                  Get Started Free
-                </Button>
-              </Link>
-              <p className="text-xs text-slate-500 text-center mt-3">
-                No credit card required
-              </p>
-            </CardContent>
-          </Card>
+      {/* Free Tier */}
+      <section className="container mx-auto px-4 pb-8">
+        <Card className="max-w-md mx-auto border-green-200 bg-green-50/50">
+          <CardHeader className="text-center">
+            <Badge className="w-fit mx-auto mb-2 bg-green-600">Start Free</Badge>
+            <CardTitle className="text-2xl">4 Free Slots</CardTitle>
+            <p className="text-slate-600 text-sm mt-2">
+              Try the magic of cross-platform comparison
+            </p>
+          </CardHeader>
+          <CardContent className="text-center">
+            <p className="text-4xl font-bold mb-4">
+              $0
+            </p>
+            <p className="text-sm text-slate-600 mb-4">
+              Save 2 from Amazon + 2 from Facebook = see why it works
+            </p>
+            <Link href="/login" className="block">
+              <Button className="w-full bg-green-600 hover:bg-green-700" size="lg">
+                Get 4 Free Slots
+              </Button>
+            </Link>
+            <p className="text-xs text-slate-500 mt-3">
+              No credit card required
+            </p>
+          </CardContent>
+        </Card>
+      </section>
 
-          {/* Pro Tier */}
-          <Card className="relative border-blue-600 border-2">
-            <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
-              Most Popular
-            </Badge>
-            <CardHeader>
-              <CardTitle className="text-2xl">Pro</CardTitle>
-              <p className="text-4xl font-bold mt-2">
-                $5.99
-                <span className="text-base font-normal text-slate-600">
-                  /month
-                </span>
-              </p>
-              <p className="text-slate-600 text-sm mt-2">
-                For serious car buyers
-              </p>
-            </CardHeader>
-            <CardContent>
-              <ul className="space-y-3 mb-6">
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span className="font-medium">Unlimited saved listings</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Everything in Free, plus:</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Price history tracking</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Price change notifications</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>CSV export</span>
-                </li>
-                <li className="flex items-center gap-3">
-                  <CheckCircle2 className="h-5 w-5 text-green-600 flex-shrink-0" />
-                  <span>Priority support</span>
-                </li>
-              </ul>
-              <Link href="/login" className="block">
-                <Button className="w-full" size="lg">
-                  Upgrade to Pro
-                </Button>
-              </Link>
-              <p className="text-xs text-slate-500 text-center mt-3">
-                Cancel anytime
-              </p>
-            </CardContent>
-          </Card>
+      {/* Slot Packages */}
+      <section className="container mx-auto px-4 py-8">
+        <h2 className="text-2xl font-bold text-center mb-8">
+          Need More? Buy Slot Packs
+        </h2>
+        <div className="grid md:grid-cols-3 gap-6 max-w-4xl mx-auto">
+          {slotPackages.map((pkg) => (
+            <Card
+              key={pkg.slots}
+              className={pkg.popular ? 'border-blue-600 border-2 relative' : ''}
+            >
+              {pkg.popular && (
+                <Badge className="absolute -top-3 left-1/2 -translate-x-1/2">
+                  Best Value
+                </Badge>
+              )}
+              <CardHeader className="text-center">
+                <CardTitle className="text-xl">+{pkg.slots} Slots</CardTitle>
+                <p className="text-3xl font-bold mt-2">
+                  ${pkg.price.toFixed(2)}
+                </p>
+                <p className="text-sm text-slate-500">
+                  ${pkg.perSlot.toFixed(2)} per slot
+                </p>
+              </CardHeader>
+              <CardContent>
+                <Link href="/login" className="block">
+                  <Button
+                    className="w-full"
+                    variant={pkg.popular ? 'default' : 'outline'}
+                    size="lg"
+                  >
+                    Buy {pkg.slots} Slots
+                  </Button>
+                </Link>
+              </CardContent>
+            </Card>
+          ))}
         </div>
       </section>
 
-      {/* Feature Comparison Table */}
-      <section className="bg-slate-50 py-16">
+      {/* What's Included */}
+      <section className="bg-slate-50 py-12">
         <div className="container mx-auto px-4">
-          <h2 className="text-2xl font-bold text-center mb-8">
-            Feature Comparison
+          <h2 className="text-xl font-semibold text-center mb-6">
+            Every Slot Includes
           </h2>
-          <div className="max-w-3xl mx-auto bg-white rounded-lg shadow-sm overflow-hidden">
-            <table className="w-full">
-              <thead>
-                <tr className="border-b bg-slate-50">
-                  <th className="text-left py-4 px-6 font-semibold">Feature</th>
-                  <th className="text-center py-4 px-6 font-semibold">Free</th>
-                  <th className="text-center py-4 px-6 font-semibold">Pro</th>
-                </tr>
-              </thead>
-              <tbody>
-                {features.map((feature, index) => (
-                  <tr
-                    key={feature.name}
-                    className={index !== features.length - 1 ? 'border-b' : ''}
-                  >
-                    <td className="py-4 px-6 text-sm">{feature.name}</td>
-                    <td className="py-4 px-6 text-center">
-                      {typeof feature.free === 'boolean' ? (
-                        feature.free ? (
-                          <CheckCircle2 className="h-5 w-5 text-green-600 mx-auto" />
-                        ) : (
-                          <X className="h-5 w-5 text-slate-300 mx-auto" />
-                        )
-                      ) : (
-                        <span className="text-sm">{feature.free}</span>
-                      )}
-                    </td>
-                    <td className="py-4 px-6 text-center">
-                      {typeof feature.pro === 'boolean' ? (
-                        feature.pro ? (
-                          <CheckCircle2 className="h-5 w-5 text-green-600 mx-auto" />
-                        ) : (
-                          <X className="h-5 w-5 text-slate-300 mx-auto" />
-                        )
-                      ) : (
-                        <span className="text-sm font-medium text-blue-600">
-                          {feature.pro}
-                        </span>
-                      )}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
+          <div className="flex flex-wrap justify-center gap-4 max-w-2xl mx-auto">
+            {includedFeatures.map((feature) => (
+              <div
+                key={feature}
+                className="flex items-center gap-2 bg-white px-4 py-2 rounded-full shadow-sm"
+              >
+                <CheckCircle2 className="h-4 w-4 text-green-600" />
+                <span className="text-sm">{feature}</span>
+              </div>
+            ))}
+          </div>
+          <p className="text-center text-sm text-slate-500 mt-6">
+            No feature limits. Pay for saves, get everything.
+          </p>
+        </div>
+      </section>
+
+      {/* How Slots Work */}
+      <section className="container mx-auto px-4 py-12">
+        <h2 className="text-2xl font-bold text-center mb-8">
+          How Slots Work
+        </h2>
+        <div className="max-w-2xl mx-auto bg-white rounded-lg shadow-sm border p-6">
+          <div className="space-y-4">
+            <div className="flex items-start gap-4">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-blue-600 font-bold">1</span>
+              </div>
+              <div>
+                <h3 className="font-semibold">You start with 4 free slots</h3>
+                <p className="text-sm text-slate-600">
+                  Enough to save 2 products from Amazon and 2 from Facebook — and see
+                  the cross-platform comparison magic.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-blue-600 font-bold">2</span>
+              </div>
+              <div>
+                <h3 className="font-semibold">Each save uses 1 slot</h3>
+                <p className="text-sm text-slate-600">
+                  Slots are consumed when you save — like buying a bookmark.
+                  You&apos;re paying for the curation, not storage.
+                </p>
+              </div>
+            </div>
+            <div className="flex items-start gap-4">
+              <div className="w-8 h-8 bg-blue-100 rounded-full flex items-center justify-center flex-shrink-0">
+                <span className="text-blue-600 font-bold">3</span>
+              </div>
+              <div>
+                <h3 className="font-semibold">Buy more when you need them</h3>
+                <p className="text-sm text-slate-600">
+                  No subscription. No monthly fee. Just buy a pack when you run out.
+                  Most shopping projects use 15-20 slots total.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Value Proposition */}
+      <section className="bg-blue-50 py-12">
+        <div className="container mx-auto px-4 text-center">
+          <h2 className="text-xl font-semibold mb-4">Why is this worth it?</h2>
+          <div className="max-w-2xl mx-auto">
+            <p className="text-slate-700 mb-4">
+              Shopping takes time. Compare the value:
+            </p>
+            <div className="grid grid-cols-2 md:grid-cols-3 gap-4 text-sm mb-6">
+              <div className="bg-white p-3 rounded-lg">
+                <div className="font-bold text-lg">Hours</div>
+                <div className="text-slate-600">Saved searching</div>
+              </div>
+              <div className="bg-white p-3 rounded-lg">
+                <div className="font-bold text-lg">$100s</div>
+                <div className="text-slate-600">Better deals</div>
+              </div>
+              <div className="bg-white p-3 rounded-lg col-span-2 md:col-span-1">
+                <div className="font-bold text-lg">One place</div>
+                <div className="text-slate-600">All your finds</div>
+              </div>
+            </div>
+            <p className="text-slate-700">
+              <strong>ShopClip for entire project: ~$15-25</strong>
+              <br />
+              <span className="text-sm text-slate-500">
+                (4 free + 10-25 purchased slots)
+              </span>
+            </p>
           </div>
         </div>
       </section>
@@ -240,43 +261,54 @@ export default function PricingPage() {
         </h2>
         <div className="max-w-3xl mx-auto space-y-6">
           <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h3 className="font-semibold mb-2">Can I cancel anytime?</h3>
+            <h3 className="font-semibold mb-2">Why slots instead of a subscription?</h3>
             <p className="text-slate-600 text-sm">
-              Yes! You can cancel your Pro subscription at any time. You&apos;ll
-              continue to have Pro access until the end of your billing period,
-              then revert to the Free tier.
+              Shopping is temporary — you research for a few weeks, buy what you need, then you&apos;re
+              done. A subscription doesn&apos;t match that. With slots, you pay for
+              what you use and never worry about forgetting to cancel.
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h3 className="font-semibold mb-2">
-              What happens to my listings if I downgrade?
-            </h3>
+            <h3 className="font-semibold mb-2">Do slots expire?</h3>
             <p className="text-slate-600 text-sm">
-              Your saved listings are preserved when you downgrade. However,
-              you&apos;ll only be able to access the most recent 25 listings
-              until you upgrade again.
+              No! Purchased slots never expire. Use them whenever you need them.
+              Price tracking on saved items works for 90 days (typical shopping duration).
             </p>
           </div>
           <div className="bg-white p-6 rounded-lg shadow-sm border">
-            <h3 className="font-semibold mb-2">
-              Do you offer refunds?
-            </h3>
+            <h3 className="font-semibold mb-2">What if I delete a saved item?</h3>
             <p className="text-slate-600 text-sm">
-              We offer a full refund within 7 days of your first Pro
-              subscription if you&apos;re not satisfied. Contact us at
-              support@carscout.app.
+              Slots are consumed when you save — deleting doesn&apos;t return the slot.
+              Think of it like saving a webpage: once bookmarked, it&apos;s part of your
+              collection history.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-sm border">
+            <h3 className="font-semibold mb-2">How many slots do I need?</h3>
+            <p className="text-slate-600 text-sm">
+              Most shopping projects involve saving 15-25 items across multiple sites. Start with
+              the 4 free slots, then buy a 10-pack ($14.99) when you need more.
+              That covers most projects.
+            </p>
+          </div>
+          <div className="bg-white p-6 rounded-lg shadow-sm border">
+            <h3 className="font-semibold mb-2">Do you offer refunds?</h3>
+            <p className="text-slate-600 text-sm">
+              Yes — if you haven&apos;t used your purchased slots, we&apos;ll refund within
+              7 days. Contact support@shopclip.app.
             </p>
           </div>
         </div>
       </section>
 
       {/* CTA */}
-      <section className="container mx-auto px-4 py-16 text-center">
+      <section className="container mx-auto px-4 py-16 text-center bg-slate-50">
+        <Zap className="h-12 w-12 text-blue-600 mx-auto mb-4" />
         <h2 className="text-3xl font-bold mb-4">
-          Ready to Find Your Perfect Car?
+          Start With 4 Free Slots
         </h2>
         <p className="text-slate-600 mb-8">
-          Start comparing cars from TradeMe today.
+          No credit card. No commitment. Just try it.
         </p>
         <Link href="/login">
           <Button size="lg">Get Started Free</Button>
@@ -288,8 +320,8 @@ export default function PricingPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <Car className="h-6 w-6 text-blue-600" />
-              <span className="font-semibold">CarScout</span>
+              <ShoppingBag className="h-6 w-6 text-blue-600" />
+              <span className="font-semibold">ShopClip</span>
             </Link>
             <nav className="flex gap-6 text-sm text-slate-600">
               <Link href="/privacy" className="hover:text-blue-600">
@@ -299,19 +331,20 @@ export default function PricingPage() {
                 Terms of Service
               </Link>
               <Link
-                href="mailto:support@carscout.app"
+                href="mailto:support@shopclip.app"
                 className="hover:text-blue-600"
               >
                 Contact
               </Link>
             </nav>
             <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} CarScout. Made in New Zealand.
+              &copy; {new Date().getFullYear()} ShopClip
             </p>
           </div>
           <p className="text-xs text-slate-400 text-center mt-8">
-            CarScout is not affiliated with TradeMe. Users are responsible for
-            compliance with third-party terms of service.
+            ShopClip is a user-initiated productivity tool. We help you save what you&apos;re
+            already viewing in your browser — like Grammarly for text or Honey for coupons.
+            We store only your personal browsing data and delete it when you close your account.
           </p>
         </div>
       </footer>

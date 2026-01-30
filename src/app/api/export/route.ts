@@ -96,7 +96,7 @@ export async function GET(request: NextRequest) {
     ].join('\n');
 
     // Return CSV file
-    const filename = `carscout-export-${new Date().toISOString().split('T')[0]}.csv`;
+    const filename = `shopclip-export-${new Date().toISOString().split('T')[0]}.csv`;
 
     return new NextResponse(csv, {
       headers: {

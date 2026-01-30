@@ -4,7 +4,7 @@ import { useState } from 'react';
 import { ListingCard } from './ListingCard';
 import { Button } from '@/components/ui/button';
 import { CarListing } from '@/types/listing';
-import { Car, Plus } from 'lucide-react';
+import { ShoppingBag, Plus } from 'lucide-react';
 import Link from 'next/link';
 
 // Mock data for development - will be replaced with real data from Supabase
@@ -13,18 +13,18 @@ const MOCK_LISTINGS: CarListing[] = [
     id: '1',
     user_id: 'user1',
     external_id: 'abc123',
-    url: 'https://www.trademe.co.nz/a/motors/cars/toyota/corolla/listing/12345678',
-    title: '2019 Toyota Corolla GX 1.8L Hybrid',
-    price: 28990,
-    year: 2019,
-    mileage: 45000,
-    make: 'Toyota',
-    model: 'Corolla',
+    url: 'https://www.facebook.com/marketplace/item/123456789',
+    title: 'IKEA KALLAX Shelf Unit 4x4 - White',
+    price: 150,
+    year: null,
+    mileage: null,
+    make: null,
+    model: null,
     location: 'Auckland',
-    image_url: 'https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?w=400',
-    platform: 'trademe',
-    current_price: 26990,
-    original_price: 28990,
+    image_url: 'https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=400',
+    platform: 'facebook',
+    current_price: 120,
+    original_price: 150,
     price_dropped: true,
     saved_at: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000).toISOString(),
     updated_at: new Date().toISOString(),
@@ -36,18 +36,18 @@ const MOCK_LISTINGS: CarListing[] = [
     id: '2',
     user_id: 'user1',
     external_id: 'def456',
-    url: 'https://www.trademe.co.nz/a/motors/cars/honda/civic/listing/23456789',
-    title: '2020 Honda Civic RS Turbo',
-    price: 32500,
-    year: 2020,
-    mileage: 38000,
-    make: 'Honda',
-    model: 'Civic',
-    location: 'Wellington',
-    image_url: 'https://images.unsplash.com/photo-1590362891991-f776e747a588?w=400',
-    platform: 'trademe',
-    current_price: 32500,
-    original_price: 32500,
+    url: 'https://www.amazon.com/dp/B08N5WRWNW',
+    title: 'Sony WH-1000XM4 Wireless Headphones',
+    price: 349,
+    year: null,
+    mileage: null,
+    make: 'Sony',
+    model: 'WH-1000XM4',
+    location: null,
+    image_url: 'https://images.unsplash.com/photo-1618366712010-f4ae9c647dcb?w=400',
+    platform: 'amazon',
+    current_price: 349,
+    original_price: 349,
     price_dropped: false,
     saved_at: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000).toISOString(),
     updated_at: new Date().toISOString(),
@@ -59,18 +59,18 @@ const MOCK_LISTINGS: CarListing[] = [
     id: '3',
     user_id: 'user1',
     external_id: 'ghi789',
-    url: 'https://www.trademe.co.nz/a/motors/cars/mazda/cx-5/listing/34567890',
-    title: '2018 Mazda CX-5 GSX 2.5L AWD',
-    price: 29990,
-    year: 2018,
-    mileage: 62000,
-    make: 'Mazda',
-    model: 'CX-5',
-    location: 'Christchurch',
-    image_url: 'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=400',
-    platform: 'trademe',
-    current_price: 27500,
-    original_price: 29990,
+    url: 'https://www.ebay.com/itm/234567890',
+    title: 'Vintage Mid-Century Modern Coffee Table',
+    price: 450,
+    year: null,
+    mileage: null,
+    make: null,
+    model: null,
+    location: 'Wellington',
+    image_url: 'https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?w=400',
+    platform: 'ebay',
+    current_price: 380,
+    original_price: 450,
     price_dropped: true,
     saved_at: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
     updated_at: new Date().toISOString(),
@@ -82,18 +82,18 @@ const MOCK_LISTINGS: CarListing[] = [
     id: '4',
     user_id: 'user1',
     external_id: 'jkl012',
-    url: 'https://www.trademe.co.nz/a/motors/cars/subaru/outback/listing/45678901',
-    title: '2021 Subaru Outback Premium 2.5L',
-    price: 42990,
-    year: 2021,
-    mileage: 28000,
-    make: 'Subaru',
-    model: 'Outback',
-    location: 'Auckland',
-    image_url: 'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=400',
-    platform: 'trademe',
-    current_price: 42990,
-    original_price: 42990,
+    url: 'https://www.ikea.com/nz/en/p/soderhamn-sofa-12345678/',
+    title: 'SÖDERHAMN 3-seat Sofa - Samsta Dark Grey',
+    price: 1299,
+    year: null,
+    mileage: null,
+    make: null,
+    model: null,
+    location: null,
+    image_url: 'https://images.unsplash.com/photo-1493663284031-b7e3aefcae8e?w=400',
+    platform: 'ikea',
+    current_price: 1299,
+    original_price: 1299,
     price_dropped: false,
     saved_at: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000).toISOString(),
     updated_at: new Date().toISOString(),
@@ -138,7 +138,7 @@ export function ListingsGrid() {
       {selectedIds.size > 0 && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3 mb-4 flex items-center justify-between">
           <span className="text-sm text-blue-700">
-            {selectedIds.size} car{selectedIds.size > 1 ? 's' : ''} selected
+            {selectedIds.size} item{selectedIds.size > 1 ? 's' : ''} selected
           </span>
           <div className="flex gap-2">
             <Button
@@ -173,7 +173,7 @@ export function ListingsGrid() {
       {/* Pagination placeholder */}
       <div className="mt-8 flex justify-center">
         <p className="text-sm text-slate-500">
-          Showing {listings.length} of {listings.length} listings
+          Showing {listings.length} of {listings.length} items
         </p>
       </div>
     </div>
@@ -183,11 +183,11 @@ export function ListingsGrid() {
 function EmptyState() {
   return (
     <div className="text-center py-16">
-      <Car className="h-16 w-16 text-slate-300 mx-auto mb-4" />
-      <h3 className="text-lg font-semibold mb-2">No listings yet</h3>
+      <ShoppingBag className="h-16 w-16 text-slate-300 mx-auto mb-4" />
+      <h3 className="text-lg font-semibold mb-2">No items yet</h3>
       <p className="text-slate-500 mb-6 max-w-md mx-auto">
-        Install the CarScout Chrome extension and save your first car listing
-        from TradeMe.
+        Install the ShopClip Chrome extension and save your first product
+        from any website.
       </p>
       <Link
         href="https://chrome.google.com/webstore"

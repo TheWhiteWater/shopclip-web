@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
-import { Car } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description:
-    'CarScout terms of service. Read our terms and conditions for using the CarScout website and Chrome extension for comparing car listings in New Zealand.',
+    'ShopClip terms of service. Read our terms and conditions for using the ShopClip website and Chrome extension for saving and comparing products from any website.',
   openGraph: {
-    title: 'Terms of Service | CarScout',
+    title: 'Terms of Service | ShopClip',
     description:
-      'Terms and conditions for using CarScout. Understand your rights and responsibilities when using our car comparison service.',
+      'Terms and conditions for using ShopClip. Understand your rights and responsibilities when using our shopping clipboard service.',
   },
 };
 
@@ -21,8 +21,8 @@ export default function TermsPage() {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Car className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">CarScout</span>
+            <ShoppingBag className="h-8 w-8 text-blue-600" />
+            <span className="text-xl font-bold">ShopClip</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/#features" className="text-sm hover:text-blue-600">
@@ -62,14 +62,14 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Agreement to Terms</h2>
             <p className="text-slate-600 mb-4">
-              By accessing or using CarScout (&quot;Service&quot;), including our website
-              at carscout.app and Chrome extension, you agree to be bound by
+              By accessing or using ShopClip (&quot;Service&quot;), including our website
+              at shopclip.app and Chrome extension, you agree to be bound by
               these Terms of Service (&quot;Terms&quot;). If you do not agree to these
               Terms, do not use the Service.
             </p>
             <p className="text-slate-600">
               These Terms constitute a legally binding agreement between you and
-              CarScout (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). We may update these Terms from
+              ShopClip (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). We may update these Terms from
               time to time, and your continued use of the Service after such
               changes constitutes acceptance of the new Terms.
             </p>
@@ -80,52 +80,52 @@ export default function TermsPage() {
               2. Description of Service
             </h2>
             <p className="text-slate-600 mb-4">
-              CarScout provides tools to help users save, organise, and compare
-              car listings from third-party websites (currently TradeMe Motors).
+              ShopClip provides tools to help users save, organise, and compare
+              products from any shopping website worldwide.
               The Service includes:
             </p>
             <ul className="list-disc list-inside text-slate-600 space-y-2">
-              <li>A Chrome browser extension for saving car listings</li>
-              <li>A web dashboard for viewing and comparing saved listings</li>
+              <li>A Chrome browser extension for saving products</li>
+              <li>A web dashboard for viewing and comparing saved items</li>
               <li>
-                Optional premium features available through a paid subscription
+                Optional slot packs available for purchase (no subscription)
               </li>
             </ul>
           </section>
 
           <section className="mb-8 bg-amber-50 border border-amber-200 rounded-lg p-6">
             <h2 className="text-2xl font-semibold mb-4 text-amber-900">
-              3. TradeMe Disclaimer
+              3. Third-Party Websites Disclaimer
             </h2>
             <p className="text-amber-800 mb-4 font-medium">
-              IMPORTANT: CarScout is not affiliated with, endorsed by, or
-              connected to TradeMe Limited or any of its subsidiaries.
+              IMPORTANT: ShopClip is not affiliated with, endorsed by, or
+              connected to any shopping platforms, marketplaces, or e-commerce
+              websites.
             </p>
             <p className="text-amber-800 mb-4">
-              TradeMe is a registered trademark of TradeMe Limited. Our Service
-              allows users to save publicly available listing information for
-              personal use. We do not scrape, crawl, or automatically collect
-              data from TradeMe.
+              Our Service allows users to save publicly available product
+              information for personal use. We do not scrape, crawl, or
+              automatically collect data from websites.
             </p>
             <p className="text-amber-800 mb-4">
               <strong>User Responsibility:</strong> You are solely responsible
-              for ensuring your use of CarScout complies with TradeMe&apos;s Terms of
-              Use and any applicable laws. By using CarScout, you acknowledge
+              for ensuring your use of ShopClip complies with each website&apos;s Terms of
+              Use and any applicable laws. By using ShopClip, you acknowledge
               that:
             </p>
             <ul className="list-disc list-inside text-amber-800 space-y-2">
               <li>
-                You will only save listings for personal, non-commercial use
+                You will only save products for personal, non-commercial use
               </li>
               <li>
-                You will not use the Service to violate TradeMe&apos;s terms or
+                You will not use the Service to violate any website&apos;s terms or
                 policies
               </li>
               <li>
-                We are not responsible for any disputes between you and TradeMe
+                We are not responsible for any disputes between you and third-party websites
               </li>
               <li>
-                We do not guarantee the accuracy or availability of listing data
+                We do not guarantee the accuracy or availability of product data
               </li>
             </ul>
           </section>
@@ -187,39 +187,38 @@ export default function TermsPage() {
 
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">
-              6. Subscriptions and Payments
+              6. Slot Packs and Payments
             </h2>
             <h3 className="text-xl font-medium mb-3">6.1 Free Tier</h3>
             <p className="text-slate-600 mb-4">
-              The free tier allows you to save up to 25 car listings at no cost.
+              The free tier provides 4 free slots to save products at no cost.
               Free tier features may be modified at any time.
             </p>
 
-            <h3 className="text-xl font-medium mb-3">6.2 Pro Subscription</h3>
+            <h3 className="text-xl font-medium mb-3">6.2 Slot Packs</h3>
             <p className="text-slate-600 mb-4">
-              CarScout Pro is available for NZD $5.99 per month. By subscribing:
+              Additional slots are available for purchase in packs. By purchasing:
             </p>
             <ul className="list-disc list-inside text-slate-600 space-y-2 mb-4">
               <li>
-                You authorise us to charge your payment method on a recurring
-                monthly basis
+                Slots are consumed when you save a product
               </li>
               <li>
-                Your subscription will automatically renew unless cancelled
+                Purchased slots never expire
               </li>
               <li>
-                You can cancel at any time through the Settings page
+                Slots cannot be refunded once used
               </li>
               <li>
-                No refunds for partial months, except as described below
+                This is a one-time purchase, not a subscription
               </li>
             </ul>
 
             <h3 className="text-xl font-medium mb-3">6.3 Refund Policy</h3>
             <p className="text-slate-600">
-              We offer a full refund within 7 days of your first Pro
-              subscription. After this period, refunds are provided at our
-              discretion. To request a refund, contact support@carscout.app.
+              We offer a full refund within 7 days if you have not used your
+              purchased slots. After this period or once slots are used, refunds
+              are provided at our discretion. To request a refund, contact support@shopclip.app.
             </p>
           </section>
 
@@ -229,7 +228,7 @@ export default function TermsPage() {
             </h2>
             <p className="text-slate-600 mb-4">
               The Service, including its original content, features, and
-              functionality, is owned by CarScout and is protected by
+              functionality, is owned by ShopClip and is protected by
               international copyright, trademark, and other intellectual
               property laws.
             </p>
@@ -252,7 +251,7 @@ export default function TermsPage() {
             </p>
             <ul className="list-disc list-inside text-slate-600 space-y-2">
               <li>Merchantability or fitness for a particular purpose</li>
-              <li>Accuracy, reliability, or completeness of listing data</li>
+              <li>Accuracy, reliability, or completeness of product data</li>
               <li>
                 Uninterrupted, secure, or error-free operation
               </li>
@@ -261,8 +260,8 @@ export default function TermsPage() {
               </li>
             </ul>
             <p className="text-slate-600 mt-4">
-              We do not guarantee that saved listings will remain available on
-              TradeMe or that prices and information are accurate.
+              We do not guarantee that saved products will remain available on
+              third-party websites or that prices and information are accurate.
             </p>
           </section>
 
@@ -271,7 +270,7 @@ export default function TermsPage() {
               9. Limitation of Liability
             </h2>
             <p className="text-slate-600 mb-4">
-              TO THE MAXIMUM EXTENT PERMITTED BY LAW, CARSCOUT AND ITS OFFICERS,
+              TO THE MAXIMUM EXTENT PERMITTED BY LAW, SHOPCLIP AND ITS OFFICERS,
               DIRECTORS, EMPLOYEES, AND AGENTS SHALL NOT BE LIABLE FOR:
             </p>
             <ul className="list-disc list-inside text-slate-600 space-y-2">
@@ -299,7 +298,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">10. Indemnification</h2>
             <p className="text-slate-600">
-              You agree to indemnify, defend, and hold harmless CarScout and its
+              You agree to indemnify, defend, and hold harmless ShopClip and its
               officers, directors, employees, and agents from any claims,
               damages, losses, liabilities, and expenses (including legal fees)
               arising from your use of the Service, violation of these Terms, or
@@ -328,13 +327,12 @@ export default function TermsPage() {
             </h2>
             <p className="text-slate-600 mb-4">
               These Terms shall be governed by and construed in accordance with
-              the laws of New Zealand, without regard to conflict of law
+              applicable international law, without regard to conflict of law
               principles.
             </p>
             <p className="text-slate-600">
               Any disputes arising from these Terms or the Service shall be
-              resolved exclusively in the courts of New Zealand. You consent to
-              the personal jurisdiction of such courts.
+              resolved through binding arbitration or in applicable courts.
             </p>
           </section>
 
@@ -368,11 +366,9 @@ export default function TermsPage() {
             </p>
             <div className="bg-slate-50 p-4 rounded-lg">
               <p className="text-slate-700">
-                <strong>CarScout</strong>
+                <strong>ShopClip</strong>
                 <br />
-                Email: legal@carscout.app
-                <br />
-                New Zealand
+                Email: legal@shopclip.app
               </p>
             </div>
           </section>
@@ -384,8 +380,8 @@ export default function TermsPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <Car className="h-6 w-6 text-blue-600" />
-              <span className="font-semibold">CarScout</span>
+              <ShoppingBag className="h-6 w-6 text-blue-600" />
+              <span className="font-semibold">ShopClip</span>
             </Link>
             <nav className="flex gap-6 text-sm text-slate-600">
               <Link href="/privacy" className="hover:text-blue-600">
@@ -395,14 +391,14 @@ export default function TermsPage() {
                 Terms of Service
               </Link>
               <Link
-                href="mailto:support@carscout.app"
+                href="mailto:support@shopclip.app"
                 className="hover:text-blue-600"
               >
                 Contact
               </Link>
             </nav>
             <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} CarScout. Made in New Zealand.
+              &copy; {new Date().getFullYear()} ShopClip
             </p>
           </div>
         </div>

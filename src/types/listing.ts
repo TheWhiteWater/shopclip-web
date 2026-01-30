@@ -1,4 +1,4 @@
-// CarScout Listing Types
+// ShopClip Listing Types
 // Based on extension data model + SaaS extensions
 
 export interface CarListing {
@@ -25,7 +25,7 @@ export interface CarListing {
   notes: string | null;
 }
 
-export type Platform = 'trademe' | 'facebook' | 'autotrader' | 'carsales';
+export type Platform = 'facebook' | 'amazon' | 'ebay' | 'ikea' | 'marketplace' | 'other';
 
 export interface PriceHistory {
   id: string;

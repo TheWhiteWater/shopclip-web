@@ -1,16 +1,16 @@
 import type { Metadata } from 'next';
-import { Car } from 'lucide-react';
+import { ShoppingBag } from 'lucide-react';
 import Link from 'next/link';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'CarScout privacy policy. Learn how we collect, use, and protect your personal information in compliance with New Zealand privacy laws and GDPR.',
+    'ShopClip privacy policy. Learn how we collect, use, and protect your personal information in compliance with privacy laws and GDPR.',
   openGraph: {
-    title: 'Privacy Policy | CarScout',
+    title: 'Privacy Policy | ShopClip',
     description:
-      'Learn how CarScout handles your data. We are committed to protecting your privacy and complying with NZ privacy laws and GDPR.',
+      'Learn how ShopClip handles your data. We are committed to protecting your privacy and complying with global privacy laws and GDPR.',
   },
 };
 
@@ -21,8 +21,8 @@ export default function PrivacyPage() {
       <header className="border-b bg-white/80 backdrop-blur-sm sticky top-0 z-50">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
-            <Car className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">CarScout</span>
+            <ShoppingBag className="h-8 w-8 text-blue-600" />
+            <span className="text-xl font-bold">ShopClip</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/#features" className="text-sm hover:text-blue-600">
@@ -62,14 +62,14 @@ export default function PrivacyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
             <p className="text-slate-600 mb-4">
-              CarScout (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your
+              ShopClip (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your
               privacy. This Privacy Policy explains how we collect, use,
               disclose, and safeguard your information when you use our website
-              (carscout.app) and Chrome extension (collectively, the
+              (shopclip.app) and Chrome extension (collectively, the
               &quot;Service&quot;).
             </p>
             <p className="text-slate-600">
-              We comply with the New Zealand Privacy Act 2020 and, where
+              We comply with applicable data protection laws and, where
               applicable, the General Data Protection Regulation (GDPR) for
               users in the European Economic Area.
             </p>
@@ -89,8 +89,8 @@ export default function PrivacyPage() {
                 when you create an account
               </li>
               <li>
-                <strong>Saved Listings:</strong> Car listing data you save using
-                our extension (title, price, mileage, images, listing URL)
+                <strong>Saved Items:</strong> Product data you save using
+                our extension (title, price, details, images, listing URL)
               </li>
               <li>
                 <strong>Payment Information:</strong> If you subscribe to Pro,
@@ -121,11 +121,11 @@ export default function PrivacyPage() {
               2.3 Chrome Extension Data
             </h3>
             <p className="text-slate-600">
-              Our Chrome extension only activates on TradeMe Motors listing
-              pages. It collects listing data (title, price, specifications,
-              images) only when you explicitly click &quot;Save to CarScout&quot;. The
-              extension does not track your browsing history or collect data
-              from other websites.
+              Our Chrome extension activates on shopping and marketplace
+              pages when you explicitly click &quot;Save to ShopClip&quot;. It collects
+              product data (title, price, specifications, images) only when
+              you save an item. The extension does not track your browsing
+              history or collect data without your action.
             </p>
           </section>
 
@@ -138,8 +138,8 @@ export default function PrivacyPage() {
             </p>
             <ul className="list-disc list-inside text-slate-600 space-y-2">
               <li>Provide, maintain, and improve the Service</li>
-              <li>Store and display your saved car listings</li>
-              <li>Process payments and manage subscriptions</li>
+              <li>Store and display your saved products</li>
+              <li>Process payments and manage purchases</li>
               <li>Send service-related emails (account verification, password reset)</li>
               <li>Respond to your inquiries and support requests</li>
               <li>Detect and prevent fraud or abuse</li>
@@ -225,9 +225,9 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p className="text-slate-600 mt-4">
-              To exercise these rights, contact us at privacy@carscout.app. We
-              will respond within 20 working days (NZ Privacy Act) or 30 days
-              (GDPR).
+              To exercise these rights, contact us at privacy@shopclip.app. We
+              will respond within 30 days in accordance with applicable laws
+              (GDPR and other data protection regulations).
             </p>
           </section>
 
@@ -247,8 +247,8 @@ export default function PrivacyPage() {
               9. International Data Transfers
             </h2>
             <p className="text-slate-600">
-              Your data may be transferred to and processed in countries other
-              than New Zealand. We ensure appropriate safeguards are in place
+              Your data may be transferred to and processed in countries
+              worldwide. We ensure appropriate safeguards are in place
               for such transfers, including standard contractual clauses
               approved by relevant authorities.
             </p>
@@ -286,25 +286,15 @@ export default function PrivacyPage() {
             </p>
             <div className="bg-slate-50 p-4 rounded-lg">
               <p className="text-slate-700">
-                <strong>CarScout</strong>
+                <strong>ShopClip</strong>
                 <br />
-                Email: privacy@carscout.app
-                <br />
-                New Zealand
+                Email: privacy@shopclip.app
               </p>
             </div>
             <p className="text-slate-600 mt-4">
               For complaints about how we handle your personal information, you
-              may also contact the Office of the Privacy Commissioner (NZ) at{' '}
-              <a
-                href="https://www.privacy.org.nz"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-blue-600 hover:underline"
-              >
-                privacy.org.nz
-              </a>
-              .
+              may contact your local data protection authority as applicable
+              under GDPR or your region&apos;s privacy laws.
             </p>
           </section>
         </div>
@@ -315,8 +305,8 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
-              <Car className="h-6 w-6 text-blue-600" />
-              <span className="font-semibold">CarScout</span>
+              <ShoppingBag className="h-6 w-6 text-blue-600" />
+              <span className="font-semibold">ShopClip</span>
             </Link>
             <nav className="flex gap-6 text-sm text-slate-600">
               <Link href="/privacy" className="text-blue-600 font-medium">
@@ -326,14 +316,14 @@ export default function PrivacyPage() {
                 Terms of Service
               </Link>
               <Link
-                href="mailto:support@carscout.app"
+                href="mailto:support@shopclip.app"
                 className="hover:text-blue-600"
               >
                 Contact
               </Link>
             </nav>
             <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} CarScout. Made in New Zealand.
+              &copy; {new Date().getFullYear()} ShopClip
             </p>
           </div>
         </div>

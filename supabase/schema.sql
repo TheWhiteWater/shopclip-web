@@ -1,11 +1,10 @@
--- CarScout Database Schema
+-- ShopClip Database Schema (Universal)
 -- Run this in Supabase SQL Editor
 
--- Enable necessary extensions
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
 
 -- ============================================
--- USERS TABLE (extends Supabase Auth)
+-- USERS TABLE
 -- ============================================
 CREATE TABLE IF NOT EXISTS users (
   id UUID PRIMARY KEY REFERENCES auth.users(id) ON DELETE CASCADE,
@@ -13,71 +12,108 @@ CREATE TABLE IF NOT EXISTS users (
   subscription_tier TEXT DEFAULT 'free' CHECK (subscription_tier IN ('free', 'pro')),
   stripe_customer_id TEXT UNIQUE,
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW(),
-  last_sync_at TIMESTAMPTZ
+  updated_at TIMESTAMPTZ DEFAULT NOW()
 );
 
 -- ============================================
--- API TOKENS TABLE (hashed tokens for extension)
+-- ITEMS TABLE (universal - any product)
 -- ============================================
-CREATE TABLE IF NOT EXISTS api_tokens (
+CREATE TABLE IF NOT EXISTS items (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  token_hash TEXT NOT NULL, -- bcrypt hash, never expose
-  name TEXT DEFAULT 'Extension Token',
-  last_used_at TIMESTAMPTZ,
-  expires_at TIMESTAMPTZ NOT NULL,
-  created_at TIMESTAMPTZ DEFAULT NOW()
-);
-
-CREATE INDEX idx_api_tokens_user ON api_tokens(user_id);
-CREATE INDEX idx_api_tokens_hash ON api_tokens(token_hash);
-
--- ============================================
--- LISTINGS TABLE
--- ============================================
-CREATE TABLE IF NOT EXISTS listings (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  external_id TEXT NOT NULL, -- SHA-256 hash from extension
+  
+  -- Source identifiers
+  platform TEXT NOT NULL DEFAULT 'other', -- facebook, amazon, ebay, trademe, other
+  item_id TEXT,                           -- platform-specific ID
   url TEXT NOT NULL,
+  
+  -- Basic product info
   title TEXT NOT NULL,
-  price INTEGER NOT NULL DEFAULT 0,
-  year INTEGER,
-  mileage INTEGER,
-  make TEXT,
-  model TEXT,
+  price TEXT,                             -- display price "NZ$25"
+  price_value DECIMAL(12,2),              -- numeric for sorting/comparison
+  currency TEXT DEFAULT 'NZD',
+  stock TEXT,                             -- in_stock, sold, pending
+  
+  -- Details
+  condition TEXT,                         -- New, Used – like new, etc
+  description TEXT,
   location TEXT,
-  image_url TEXT,
-  platform TEXT NOT NULL DEFAULT 'trademe' CHECK (platform IN ('trademe', 'facebook', 'autotrader', 'carsales')),
-  current_price INTEGER NOT NULL DEFAULT 0,
-  original_price INTEGER,
-  price_dropped BOOLEAN DEFAULT FALSE,
-  saved_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+  
+  -- Media
+  image_url TEXT,                         -- primary image
+  images JSONB DEFAULT '[]'::jsonb,       -- array of all image URLs
+  
+  -- Seller info (nullable - not all platforms have this)
+  seller_name TEXT,
+  seller_rating DECIMAL(2,1),             -- 4.8
+  seller_reviews INTEGER,                 -- 55
+  seller_badges TEXT,
+  seller_joined INTEGER,                  -- year: 2015
+  seller_profile_url TEXT,
+  
+  -- Tracking
+  saved_at TIMESTAMPTZ DEFAULT NOW(),
   updated_at TIMESTAMPTZ DEFAULT NOW(),
-  is_archived BOOLEAN DEFAULT FALSE,
-  is_deleted BOOLEAN DEFAULT FALSE,
+  extracted_at TIMESTAMPTZ,
+  
+  -- User actions
   notes TEXT,
-
-  UNIQUE(user_id, external_id)
+  is_favorite BOOLEAN DEFAULT FALSE,
+  is_archived BOOLEAN DEFAULT FALSE,
+  is_purchased BOOLEAN DEFAULT FALSE,
+  purchased_at TIMESTAMPTZ,
+  purchased_price DECIMAL(12,2),
+  
+  -- Constraints
+  UNIQUE(user_id, platform, item_id),
+  UNIQUE(user_id, url)
 );
 
-CREATE INDEX idx_listings_user_saved ON listings(user_id, saved_at DESC);
-CREATE INDEX idx_listings_user_platform ON listings(user_id, platform);
-CREATE INDEX idx_listings_price_dropped ON listings(user_id, price_dropped) WHERE price_dropped = TRUE;
+-- Indexes
+CREATE INDEX idx_items_user_saved ON items(user_id, saved_at DESC);
+CREATE INDEX idx_items_user_platform ON items(user_id, platform);
+CREATE INDEX idx_items_user_favorite ON items(user_id, is_favorite) WHERE is_favorite = TRUE;
+CREATE INDEX idx_items_price_value ON items(user_id, price_value);
+CREATE INDEX idx_items_location ON items(user_id, location);
 
 -- ============================================
--- PRICE HISTORY TABLE
+-- COLLECTIONS TABLE (group items)
+-- ============================================
+CREATE TABLE IF NOT EXISTS collections (
+  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
+  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+  name TEXT NOT NULL,
+  description TEXT,
+  color TEXT DEFAULT '#4F46E5',           -- for UI
+  icon TEXT DEFAULT '📦',
+  created_at TIMESTAMPTZ DEFAULT NOW(),
+  updated_at TIMESTAMPTZ DEFAULT NOW()
+);
+
+CREATE INDEX idx_collections_user ON collections(user_id);
+
+-- ============================================
+-- COLLECTION_ITEMS (many-to-many)
+-- ============================================
+CREATE TABLE IF NOT EXISTS collection_items (
+  collection_id UUID NOT NULL REFERENCES collections(id) ON DELETE CASCADE,
+  item_id UUID NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  added_at TIMESTAMPTZ DEFAULT NOW(),
+  PRIMARY KEY (collection_id, item_id)
+);
+
+-- ============================================
+-- PRICE_HISTORY (track changes)
 -- ============================================
 CREATE TABLE IF NOT EXISTS price_history (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  listing_id UUID NOT NULL REFERENCES listings(id) ON DELETE CASCADE,
-  price INTEGER NOT NULL,
-  recorded_at TIMESTAMPTZ DEFAULT NOW(),
-  source TEXT DEFAULT 'sync' CHECK (source IN ('sync', 'manual', 'scrape'))
+  item_id UUID NOT NULL REFERENCES items(id) ON DELETE CASCADE,
+  price_value DECIMAL(12,2) NOT NULL,
+  price_text TEXT,
+  recorded_at TIMESTAMPTZ DEFAULT NOW()
 );
 
-CREATE INDEX idx_price_history_listing ON price_history(listing_id, recorded_at DESC);
+CREATE INDEX idx_price_history_item ON price_history(item_id, recorded_at DESC);
 
 -- ============================================
 -- SUBSCRIPTIONS TABLE
@@ -96,102 +132,60 @@ CREATE TABLE IF NOT EXISTS subscriptions (
 );
 
 -- ============================================
--- SYNC LOGS TABLE (debugging)
+-- ROW LEVEL SECURITY
 -- ============================================
-CREATE TABLE IF NOT EXISTS sync_logs (
-  id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
-  user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
-  items_synced INTEGER DEFAULT 0,
-  items_failed INTEGER DEFAULT 0,
-  started_at TIMESTAMPTZ DEFAULT NOW(),
-  completed_at TIMESTAMPTZ,
-  error TEXT
-);
-
-CREATE INDEX idx_sync_logs_user ON sync_logs(user_id, started_at DESC);
-
--- ============================================
--- ROW LEVEL SECURITY (RLS)
--- ============================================
-
--- Enable RLS on all tables
 ALTER TABLE users ENABLE ROW LEVEL SECURITY;
-ALTER TABLE api_tokens ENABLE ROW LEVEL SECURITY;
-ALTER TABLE listings ENABLE ROW LEVEL SECURITY;
+ALTER TABLE items ENABLE ROW LEVEL SECURITY;
+ALTER TABLE collections ENABLE ROW LEVEL SECURITY;
+ALTER TABLE collection_items ENABLE ROW LEVEL SECURITY;
 ALTER TABLE price_history ENABLE ROW LEVEL SECURITY;
 ALTER TABLE subscriptions ENABLE ROW LEVEL SECURITY;
-ALTER TABLE sync_logs ENABLE ROW LEVEL SECURITY;
 
--- Users policies
-CREATE POLICY "Users can view own profile" ON users
-  FOR SELECT USING (auth.uid() = id);
+-- Users
+CREATE POLICY "Users can view own profile" ON users FOR SELECT USING (auth.uid() = id);
+CREATE POLICY "Users can update own profile" ON users FOR UPDATE USING (auth.uid() = id);
 
-CREATE POLICY "Users can update own profile" ON users
-  FOR UPDATE USING (auth.uid() = id);
+-- Items
+CREATE POLICY "Users can view own items" ON items FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own items" ON items FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own items" ON items FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own items" ON items FOR DELETE USING (auth.uid() = user_id);
 
--- API Tokens policies
-CREATE POLICY "Users can view own tokens" ON api_tokens
-  FOR SELECT USING (auth.uid() = user_id);
+-- Collections
+CREATE POLICY "Users can view own collections" ON collections FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Users can insert own collections" ON collections FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY "Users can update own collections" ON collections FOR UPDATE USING (auth.uid() = user_id);
+CREATE POLICY "Users can delete own collections" ON collections FOR DELETE USING (auth.uid() = user_id);
 
-CREATE POLICY "Users can create own tokens" ON api_tokens
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+-- Collection Items
+CREATE POLICY "Users can view own collection items" ON collection_items FOR SELECT USING (
+  EXISTS (SELECT 1 FROM collections WHERE id = collection_id AND user_id = auth.uid())
+);
+CREATE POLICY "Users can insert own collection items" ON collection_items FOR INSERT WITH CHECK (
+  EXISTS (SELECT 1 FROM collections WHERE id = collection_id AND user_id = auth.uid())
+);
+CREATE POLICY "Users can delete own collection items" ON collection_items FOR DELETE USING (
+  EXISTS (SELECT 1 FROM collections WHERE id = collection_id AND user_id = auth.uid())
+);
 
-CREATE POLICY "Users can delete own tokens" ON api_tokens
-  FOR DELETE USING (auth.uid() = user_id);
+-- Price History
+CREATE POLICY "Users can view own price history" ON price_history FOR SELECT USING (
+  EXISTS (SELECT 1 FROM items WHERE id = item_id AND user_id = auth.uid())
+);
+CREATE POLICY "Users can insert own price history" ON price_history FOR INSERT WITH CHECK (
+  EXISTS (SELECT 1 FROM items WHERE id = item_id AND user_id = auth.uid())
+);
 
--- Listings policies
-CREATE POLICY "Users can view own listings" ON listings
-  FOR SELECT USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert own listings" ON listings
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
-
-CREATE POLICY "Users can update own listings" ON listings
-  FOR UPDATE USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can delete own listings" ON listings
-  FOR DELETE USING (auth.uid() = user_id);
-
--- Price History policies
-CREATE POLICY "Users can view own price history" ON price_history
-  FOR SELECT USING (
-    EXISTS (
-      SELECT 1 FROM listings
-      WHERE listings.id = price_history.listing_id
-      AND listings.user_id = auth.uid()
-    )
-  );
-
-CREATE POLICY "Users can insert own price history" ON price_history
-  FOR INSERT WITH CHECK (
-    EXISTS (
-      SELECT 1 FROM listings
-      WHERE listings.id = price_history.listing_id
-      AND listings.user_id = auth.uid()
-    )
-  );
-
--- Subscriptions policies
-CREATE POLICY "Users can view own subscription" ON subscriptions
-  FOR SELECT USING (auth.uid() = user_id);
-
--- Sync Logs policies
-CREATE POLICY "Users can view own sync logs" ON sync_logs
-  FOR SELECT USING (auth.uid() = user_id);
-
-CREATE POLICY "Users can insert own sync logs" ON sync_logs
-  FOR INSERT WITH CHECK (auth.uid() = user_id);
+-- Subscriptions
+CREATE POLICY "Users can view own subscription" ON subscriptions FOR SELECT USING (auth.uid() = user_id);
 
 -- ============================================
 -- TRIGGERS
 -- ============================================
-
--- Auto-create user profile on signup
 CREATE OR REPLACE FUNCTION public.handle_new_user()
 RETURNS TRIGGER AS $$
 BEGIN
-  INSERT INTO public.users (id, email)
-  VALUES (NEW.id, NEW.email);
+  INSERT INTO public.users (id, email) VALUES (NEW.id, NEW.email);
   RETURN NEW;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
@@ -200,7 +194,6 @@ CREATE OR REPLACE TRIGGER on_auth_user_created
   AFTER INSERT ON auth.users
   FOR EACH ROW EXECUTE FUNCTION public.handle_new_user();
 
--- Auto-update updated_at timestamp
 CREATE OR REPLACE FUNCTION update_updated_at()
 RETURNS TRIGGER AS $$
 BEGIN
@@ -209,50 +202,30 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
-CREATE TRIGGER update_users_updated_at
-  BEFORE UPDATE ON users
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
-
-CREATE TRIGGER update_listings_updated_at
-  BEFORE UPDATE ON listings
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
-
-CREATE TRIGGER update_subscriptions_updated_at
-  BEFORE UPDATE ON subscriptions
-  FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+CREATE TRIGGER update_users_updated_at BEFORE UPDATE ON users FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+CREATE TRIGGER update_items_updated_at BEFORE UPDATE ON items FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+CREATE TRIGGER update_collections_updated_at BEFORE UPDATE ON collections FOR EACH ROW EXECUTE FUNCTION update_updated_at();
+CREATE TRIGGER update_subscriptions_updated_at BEFORE UPDATE ON subscriptions FOR EACH ROW EXECUTE FUNCTION update_updated_at();
 
 -- ============================================
--- FUNCTIONS
+-- HELPER FUNCTIONS
 -- ============================================
-
--- Get user's listing count (for free tier enforcement)
-CREATE OR REPLACE FUNCTION get_user_listing_count(p_user_id UUID)
+CREATE OR REPLACE FUNCTION get_user_item_count(p_user_id UUID)
 RETURNS INTEGER AS $$
 BEGIN
-  RETURN (
-    SELECT COUNT(*)::INTEGER
-    FROM listings
-    WHERE user_id = p_user_id
-    AND is_deleted = FALSE
-    AND is_archived = FALSE
-  );
+  RETURN (SELECT COUNT(*)::INTEGER FROM items WHERE user_id = p_user_id AND is_archived = FALSE);
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;
 
--- Check if user can add more listings
-CREATE OR REPLACE FUNCTION can_add_listing(p_user_id UUID)
+CREATE OR REPLACE FUNCTION can_add_item(p_user_id UUID)
 RETURNS BOOLEAN AS $$
 DECLARE
   v_tier TEXT;
   v_count INTEGER;
 BEGIN
   SELECT subscription_tier INTO v_tier FROM users WHERE id = p_user_id;
-
-  IF v_tier = 'pro' THEN
-    RETURN TRUE;
-  END IF;
-
-  v_count := get_user_listing_count(p_user_id);
-  RETURN v_count < 25; -- Free tier limit
+  IF v_tier = 'pro' THEN RETURN TRUE; END IF;
+  v_count := get_user_item_count(p_user_id);
+  RETURN v_count < 50; -- Free tier: 50 items
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

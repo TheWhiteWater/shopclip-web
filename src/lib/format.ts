@@ -1,4 +1,4 @@
-// Formatting utilities for CarScout
+// Formatting utilities for ShopClip
 
 /**
  * Format price in NZD

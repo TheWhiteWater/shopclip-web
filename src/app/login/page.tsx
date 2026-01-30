@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Separator } from '@/components/ui/separator';
-import { Car, Mail, Chrome, AlertCircle, Loader2 } from 'lucide-react';
+import { ShoppingBag, Mail, Chrome, AlertCircle, Loader2 } from 'lucide-react';
 
 function LoginContent() {
   const router = useRouter();
@@ -112,12 +112,12 @@ function LoginContent() {
       <Card className="w-full max-w-md">
         <CardHeader className="text-center">
           <Link href="/" className="flex items-center justify-center gap-2 mb-4">
-            <Car className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">CarScout</span>
+            <ShoppingBag className="h-8 w-8 text-blue-600" />
+            <span className="text-xl font-bold">ShopClip</span>
           </Link>
-          <CardTitle>Sign in to CarScout</CardTitle>
+          <CardTitle>Sign in to ShopClip</CardTitle>
           <p className="text-sm text-slate-500 mt-2">
-            Compare car listings across New Zealand
+            Save products from any website, compare side-by-side
           </p>
         </CardHeader>
 
