@@ -1,17 +1,17 @@
 import { z } from 'zod';
 import { createMcpHandler } from 'mcp-handler';
 
-// Create the MCP handler with ShopClip tools
+// Create the MCP handler with Grabbit tools
 const handler = createMcpHandler(
   (server) => {
     // Simple test tool
     server.tool(
       'ping',
-      'Test connectivity to ShopClip MCP server',
+      'Test connectivity to Grabbit MCP server',
       {},
       async () => {
         return {
-          content: [{ type: 'text', text: 'pong! ShopClip MCP is working.' }]
+          content: [{ type: 'text', text: 'pong! Grabbit MCP is working.' }]
         };
       }
     );
@@ -32,7 +32,7 @@ const handler = createMcpHandler(
             text: JSON.stringify({
               items: [],
               count: 0,
-              message: 'Authentication required. Get API token from ShopClip dashboard.',
+              message: 'Authentication required. Get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };
@@ -51,7 +51,7 @@ const handler = createMcpHandler(
             type: 'text',
             text: JSON.stringify({
               error: 'Authentication required',
-              message: 'Get API token from ShopClip dashboard.',
+              message: 'Get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };
@@ -74,7 +74,7 @@ const handler = createMcpHandler(
             type: 'text',
             text: JSON.stringify({
               error: 'Authentication required',
-              message: 'Get API token from ShopClip dashboard.',
+              message: 'Get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };
@@ -93,7 +93,7 @@ const handler = createMcpHandler(
             type: 'text',
             text: JSON.stringify({
               error: 'Authentication required',
-              message: 'Get API token from ShopClip dashboard.',
+              message: 'Get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };
@@ -113,7 +113,7 @@ const handler = createMcpHandler(
             type: 'text',
             text: JSON.stringify({
               error: 'Authentication required',
-              message: 'Get API token from ShopClip dashboard.',
+              message: 'Get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };
@@ -134,7 +134,7 @@ const handler = createMcpHandler(
             type: 'text',
             text: JSON.stringify({
               error: 'Authentication required (Pro feature)',
-              message: 'Upgrade to Pro and get API token from ShopClip dashboard.',
+              message: 'Upgrade to Pro and get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };
@@ -153,7 +153,7 @@ const handler = createMcpHandler(
             type: 'text',
             text: JSON.stringify({
               error: 'Authentication required (Pro feature)',
-              message: 'Upgrade to Pro and get API token from ShopClip dashboard.',
+              message: 'Upgrade to Pro and get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };
@@ -172,7 +172,7 @@ const handler = createMcpHandler(
             type: 'text',
             text: JSON.stringify({
               error: 'Authentication required',
-              message: 'Get API token from ShopClip dashboard.',
+              message: 'Get API token from Grabbit dashboard.',
             }, null, 2)
           }]
         };

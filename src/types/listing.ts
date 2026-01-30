@@ -1,4 +1,4 @@
-// ShopClip Listing Types
+// Grabbit Listing Types
 // Based on extension data model + SaaS extensions
 
 export interface CarListing {

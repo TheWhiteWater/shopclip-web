@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 export const metadata: Metadata = {
   title: 'Privacy Policy',
   description:
-    'ShopClip privacy policy. Learn how we collect, use, and protect your personal information in compliance with privacy laws and GDPR.',
+    'Grabbit privacy policy. Learn how we collect, use, and protect your personal information in compliance with privacy laws and GDPR.',
   openGraph: {
-    title: 'Privacy Policy | ShopClip',
+    title: 'Privacy Policy | Grabbit',
     description:
-      'Learn how ShopClip handles your data. We are committed to protecting your privacy and complying with global privacy laws and GDPR.',
+      'Learn how Grabbit handles your data. We are committed to protecting your privacy and complying with global privacy laws and GDPR.',
   },
 };
 
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <ShoppingBag className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">ShopClip</span>
+            <span className="text-xl font-bold">Grabbit</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/#features" className="text-sm hover:text-blue-600">
@@ -62,10 +62,10 @@ export default function PrivacyPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Introduction</h2>
             <p className="text-slate-600 mb-4">
-              ShopClip (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your
+              Grabbit (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;) is committed to protecting your
               privacy. This Privacy Policy explains how we collect, use,
               disclose, and safeguard your information when you use our website
-              (shopclip.app) and Chrome extension (collectively, the
+              (grabbitapp.com) and Chrome extension (collectively, the
               &quot;Service&quot;).
             </p>
             <p className="text-slate-600">
@@ -122,7 +122,7 @@ export default function PrivacyPage() {
             </h3>
             <p className="text-slate-600">
               Our Chrome extension activates on shopping and marketplace
-              pages when you explicitly click &quot;Save to ShopClip&quot;. It collects
+              pages when you explicitly click &quot;Save to Grabbit&quot;. It collects
               product data (title, price, specifications, images) only when
               you save an item. The extension does not track your browsing
               history or collect data without your action.
@@ -225,7 +225,7 @@ export default function PrivacyPage() {
               </li>
             </ul>
             <p className="text-slate-600 mt-4">
-              To exercise these rights, contact us at privacy@shopclip.app. We
+              To exercise these rights, contact us at privacy@grabbitapp.com. We
               will respond within 30 days in accordance with applicable laws
               (GDPR and other data protection regulations).
             </p>
@@ -286,9 +286,9 @@ export default function PrivacyPage() {
             </p>
             <div className="bg-slate-50 p-4 rounded-lg">
               <p className="text-slate-700">
-                <strong>ShopClip</strong>
+                <strong>Grabbit</strong>
                 <br />
-                Email: privacy@shopclip.app
+                Email: privacy@grabbitapp.com
               </p>
             </div>
             <p className="text-slate-600 mt-4">
@@ -306,7 +306,7 @@ export default function PrivacyPage() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
               <ShoppingBag className="h-6 w-6 text-blue-600" />
-              <span className="font-semibold">ShopClip</span>
+              <span className="font-semibold">Grabbit</span>
             </Link>
             <nav className="flex gap-6 text-sm text-slate-600">
               <Link href="/privacy" className="text-blue-600 font-medium">
@@ -316,14 +316,14 @@ export default function PrivacyPage() {
                 Terms of Service
               </Link>
               <Link
-                href="mailto:support@shopclip.app"
+                href="mailto:support@grabbitapp.com"
                 className="hover:text-blue-600"
               >
                 Contact
               </Link>
             </nav>
             <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} ShopClip
+              &copy; {new Date().getFullYear()} Grabbit
             </p>
           </div>
         </div>

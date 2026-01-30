@@ -20,7 +20,7 @@ export default function DashboardLayout({
         <div className="flex items-center justify-between px-4 py-3">
           <Link href="/" className="flex items-center gap-2">
             <ShoppingBag className="h-6 w-6 text-blue-600" />
-            <span className="font-bold">ShopClip</span>
+            <span className="font-bold">Grabbit</span>
           </Link>
 
           <nav className="hidden md:flex items-center gap-1">

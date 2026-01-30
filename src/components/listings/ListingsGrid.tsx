@@ -186,7 +186,7 @@ function EmptyState() {
       <ShoppingBag className="h-16 w-16 text-slate-300 mx-auto mb-4" />
       <h3 className="text-lg font-semibold mb-2">No items yet</h3>
       <p className="text-slate-500 mb-6 max-w-md mx-auto">
-        Install the ShopClip Chrome extension and save your first product
+        Install the Grabbit Chrome extension and save your first product
         from any website.
       </p>
       <Link

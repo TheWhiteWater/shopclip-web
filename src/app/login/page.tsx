@@ -113,9 +113,9 @@ function LoginContent() {
         <CardHeader className="text-center">
           <Link href="/" className="flex items-center justify-center gap-2 mb-4">
             <ShoppingBag className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">ShopClip</span>
+            <span className="text-xl font-bold">Grabbit</span>
           </Link>
-          <CardTitle>Sign in to ShopClip</CardTitle>
+          <CardTitle>Sign in to Grabbit</CardTitle>
           <p className="text-sm text-slate-500 mt-2">
             Save products from any website, compare side-by-side
           </p>

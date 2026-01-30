@@ -8,9 +8,9 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Pricing',
   description:
-    'ShopClip pricing. Start with 4 free saves. Buy more slots as you need them: 5 for $9.99, 10 for $14.99, 25 for $24.99. No subscription required.',
+    'Grabbit pricing. Start with 4 free saves. Buy more slots as you need them: 5 for $9.99, 10 for $14.99, 25 for $24.99. No subscription required.',
   openGraph: {
-    title: 'Pricing | ShopClip',
+    title: 'Pricing | Grabbit',
     description:
       'Pay for what you use. 4 free saves to start. Buy more slots when you need them. No monthly subscription.',
   },
@@ -40,7 +40,7 @@ export default function PricingPage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <ShoppingBag className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">ShopClip</span>
+            <span className="text-xl font-bold">Grabbit</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/#features" className="text-sm hover:text-blue-600">
@@ -244,7 +244,7 @@ export default function PricingPage() {
               </div>
             </div>
             <p className="text-slate-700">
-              <strong>ShopClip for entire project: ~$15-25</strong>
+              <strong>Grabbit for entire project: ~$15-25</strong>
               <br />
               <span className="text-sm text-slate-500">
                 (4 free + 10-25 purchased slots)
@@ -295,7 +295,7 @@ export default function PricingPage() {
             <h3 className="font-semibold mb-2">Do you offer refunds?</h3>
             <p className="text-slate-600 text-sm">
               Yes — if you haven&apos;t used your purchased slots, we&apos;ll refund within
-              7 days. Contact support@shopclip.app.
+              7 days. Contact support@grabbitapp.com.
             </p>
           </div>
         </div>
@@ -321,7 +321,7 @@ export default function PricingPage() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
               <ShoppingBag className="h-6 w-6 text-blue-600" />
-              <span className="font-semibold">ShopClip</span>
+              <span className="font-semibold">Grabbit</span>
             </Link>
             <nav className="flex gap-6 text-sm text-slate-600">
               <Link href="/privacy" className="hover:text-blue-600">
@@ -331,18 +331,18 @@ export default function PricingPage() {
                 Terms of Service
               </Link>
               <Link
-                href="mailto:support@shopclip.app"
+                href="mailto:support@grabbitapp.com"
                 className="hover:text-blue-600"
               >
                 Contact
               </Link>
             </nav>
             <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} ShopClip
+              &copy; {new Date().getFullYear()} Grabbit
             </p>
           </div>
           <p className="text-xs text-slate-400 text-center mt-8">
-            ShopClip is a user-initiated productivity tool. We help you save what you&apos;re
+            Grabbit is a user-initiated productivity tool. We help you save what you&apos;re
             already viewing in your browser — like Grammarly for text or Honey for coupons.
             We store only your personal browsing data and delete it when you close your account.
           </p>

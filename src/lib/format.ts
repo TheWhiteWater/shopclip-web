@@ -1,4 +1,4 @@
-// Formatting utilities for ShopClip
+// Formatting utilities for Grabbit
 
 /**
  * Format price in NZD

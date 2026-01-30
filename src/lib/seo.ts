@@ -1,12 +1,12 @@
 import { Metadata } from 'next';
 
-const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://shopclip.app';
+const BASE_URL = process.env.NEXT_PUBLIC_APP_URL || 'https://grabbitapp.com';
 
 export const defaultMetadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: 'ShopClip - Save & Compare Products From Any Website',
-    template: '%s | ShopClip',
+    default: 'Grabbit - Save & Compare Products From Any Website',
+    template: '%s | Grabbit',
   },
   description:
     'Save and compare products from any website. Like Grammarly for text or Honey for discounts — but for shopping. Works on Facebook Marketplace, Amazon, eBay, IKEA, and more.',
@@ -25,9 +25,9 @@ export const defaultMetadata: Metadata = {
     'save products',
     'shopping clipboard',
   ],
-  authors: [{ name: 'ShopClip' }],
-  creator: 'ShopClip',
-  publisher: 'ShopClip',
+  authors: [{ name: 'Grabbit' }],
+  creator: 'Grabbit',
+  publisher: 'Grabbit',
   robots: {
     index: true,
     follow: true,
@@ -43,8 +43,8 @@ export const defaultMetadata: Metadata = {
     type: 'website',
     locale: 'en',
     url: BASE_URL,
-    siteName: 'ShopClip',
-    title: 'ShopClip - Save & Compare Products From Any Website',
+    siteName: 'Grabbit',
+    title: 'Grabbit - Save & Compare Products From Any Website',
     description:
       'Like Grammarly for text or Honey for discounts — but for shopping. Save products from Facebook, Amazon, eBay, and more. Compare side-by-side.',
     images: [
@@ -52,13 +52,13 @@ export const defaultMetadata: Metadata = {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'ShopClip - Save & Compare Products From Any Website',
+        alt: 'Grabbit - Save & Compare Products From Any Website',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'ShopClip - Save & Compare Products From Any Website',
+    title: 'Grabbit - Save & Compare Products From Any Website',
     description:
       'Like Grammarly for text or Honey for discounts — but for shopping. Compare products from any website.',
     images: ['/og-image.png'],
@@ -84,7 +84,7 @@ export function getHomePageJsonLd() {
         '@type': 'WebSite',
         '@id': `${BASE_URL}/#website`,
         url: BASE_URL,
-        name: 'ShopClip',
+        name: 'Grabbit',
         description: 'Save and compare products from any website worldwide',
         publisher: {
           '@id': `${BASE_URL}/#organization`,
@@ -93,7 +93,7 @@ export function getHomePageJsonLd() {
       {
         '@type': 'Organization',
         '@id': `${BASE_URL}/#organization`,
-        name: 'ShopClip',
+        name: 'Grabbit',
         url: BASE_URL,
         logo: {
           '@type': 'ImageObject',
@@ -104,7 +104,7 @@ export function getHomePageJsonLd() {
       {
         '@type': 'SoftwareApplication',
         '@id': `${BASE_URL}/#software`,
-        name: 'ShopClip',
+        name: 'Grabbit',
         applicationCategory: 'UtilitiesApplication',
         operatingSystem: 'Web, Chrome, Edge, Brave, Opera',
         description:
@@ -169,18 +169,18 @@ export function getFaqJsonLd() {
     mainEntity: [
       {
         '@type': 'Question',
-        name: 'What websites does ShopClip work with?',
+        name: 'What websites does Grabbit work with?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'ShopClip works on virtually any shopping website worldwide including Facebook Marketplace, Amazon, eBay, IKEA, Craigslist, local marketplaces, and dealer websites. We support any site with products to save.',
+          text: 'Grabbit works on virtually any shopping website worldwide including Facebook Marketplace, Amazon, eBay, IKEA, Craigslist, local marketplaces, and dealer websites. We support any site with products to save.',
         },
       },
       {
         '@type': 'Question',
-        name: 'Is ShopClip free to use?',
+        name: 'Is Grabbit free to use?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: 'Yes! ShopClip gives you 4 free slots to save products from ANY platform. That\'s enough to compare items from different websites. Need more? Buy slot packs starting at $9.99 for 5 slots. No subscription required.',
+          text: 'Yes! Grabbit gives you 4 free slots to save products from ANY platform. That\'s enough to compare items from different websites. Need more? Buy slot packs starting at $9.99 for 5 slots. No subscription required.',
         },
       },
       {
@@ -188,7 +188,7 @@ export function getFaqJsonLd() {
         name: 'Can I compare products from different websites?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: "Yes! That's ShopClip's superpower. Found a product on Amazon and another on Facebook? Save both and compare them side-by-side in your dashboard — price, features, everything.",
+          text: "Yes! That's Grabbit's superpower. Found a product on Amazon and another on Facebook? Save both and compare them side-by-side in your dashboard — price, features, everything.",
         },
       },
       {
@@ -196,7 +196,7 @@ export function getFaqJsonLd() {
         name: 'How does price tracking work?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: "When you save a product multiple times, ShopClip tracks price changes automatically. You'll see if the price went up or down since you first saved it, helping you spot deals.",
+          text: "When you save a product multiple times, Grabbit tracks price changes automatically. You'll see if the price went up or down since you first saved it, helping you spot deals.",
         },
       },
       {
@@ -204,7 +204,7 @@ export function getFaqJsonLd() {
         name: 'Which browsers are supported?',
         acceptedAnswer: {
           '@type': 'Answer',
-          text: "ShopClip works on all Chromium-based browsers: Chrome, Edge, Brave, Opera, Arc, and Vivaldi. That's 83% of browser users. Firefox and Safari support coming soon.",
+          text: "Grabbit works on all Chromium-based browsers: Chrome, Edge, Brave, Opera, Arc, and Vivaldi. That's 83% of browser users. Firefox and Safari support coming soon.",
         },
       },
     ],

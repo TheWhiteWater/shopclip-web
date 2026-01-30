@@ -6,11 +6,11 @@ import { Button } from '@/components/ui/button';
 export const metadata: Metadata = {
   title: 'Terms of Service',
   description:
-    'ShopClip terms of service. Read our terms and conditions for using the ShopClip website and Chrome extension for saving and comparing products from any website.',
+    'Grabbit terms of service. Read our terms and conditions for using the Grabbit website and Chrome extension for saving and comparing products from any website.',
   openGraph: {
-    title: 'Terms of Service | ShopClip',
+    title: 'Terms of Service | Grabbit',
     description:
-      'Terms and conditions for using ShopClip. Understand your rights and responsibilities when using our shopping clipboard service.',
+      'Terms and conditions for using Grabbit. Understand your rights and responsibilities when using our shopping clipboard service.',
   },
 };
 
@@ -22,7 +22,7 @@ export default function TermsPage() {
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <Link href="/" className="flex items-center gap-2">
             <ShoppingBag className="h-8 w-8 text-blue-600" />
-            <span className="text-xl font-bold">ShopClip</span>
+            <span className="text-xl font-bold">Grabbit</span>
           </Link>
           <nav className="hidden md:flex items-center gap-6">
             <Link href="/#features" className="text-sm hover:text-blue-600">
@@ -62,14 +62,14 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">1. Agreement to Terms</h2>
             <p className="text-slate-600 mb-4">
-              By accessing or using ShopClip (&quot;Service&quot;), including our website
-              at shopclip.app and Chrome extension, you agree to be bound by
+              By accessing or using Grabbit (&quot;Service&quot;), including our website
+              at grabbitapp.com and Chrome extension, you agree to be bound by
               these Terms of Service (&quot;Terms&quot;). If you do not agree to these
               Terms, do not use the Service.
             </p>
             <p className="text-slate-600">
               These Terms constitute a legally binding agreement between you and
-              ShopClip (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). We may update these Terms from
+              Grabbit (&quot;we&quot;, &quot;us&quot;, or &quot;our&quot;). We may update these Terms from
               time to time, and your continued use of the Service after such
               changes constitutes acceptance of the new Terms.
             </p>
@@ -80,7 +80,7 @@ export default function TermsPage() {
               2. Description of Service
             </h2>
             <p className="text-slate-600 mb-4">
-              ShopClip provides tools to help users save, organise, and compare
+              Grabbit provides tools to help users save, organise, and compare
               products from any shopping website worldwide.
               The Service includes:
             </p>
@@ -98,7 +98,7 @@ export default function TermsPage() {
               3. Third-Party Websites Disclaimer
             </h2>
             <p className="text-amber-800 mb-4 font-medium">
-              IMPORTANT: ShopClip is not affiliated with, endorsed by, or
+              IMPORTANT: Grabbit is not affiliated with, endorsed by, or
               connected to any shopping platforms, marketplaces, or e-commerce
               websites.
             </p>
@@ -109,8 +109,8 @@ export default function TermsPage() {
             </p>
             <p className="text-amber-800 mb-4">
               <strong>User Responsibility:</strong> You are solely responsible
-              for ensuring your use of ShopClip complies with each website&apos;s Terms of
-              Use and any applicable laws. By using ShopClip, you acknowledge
+              for ensuring your use of Grabbit complies with each website&apos;s Terms of
+              Use and any applicable laws. By using Grabbit, you acknowledge
               that:
             </p>
             <ul className="list-disc list-inside text-amber-800 space-y-2">
@@ -218,7 +218,7 @@ export default function TermsPage() {
             <p className="text-slate-600">
               We offer a full refund within 7 days if you have not used your
               purchased slots. After this period or once slots are used, refunds
-              are provided at our discretion. To request a refund, contact support@shopclip.app.
+              are provided at our discretion. To request a refund, contact support@grabbitapp.com.
             </p>
           </section>
 
@@ -228,7 +228,7 @@ export default function TermsPage() {
             </h2>
             <p className="text-slate-600 mb-4">
               The Service, including its original content, features, and
-              functionality, is owned by ShopClip and is protected by
+              functionality, is owned by Grabbit and is protected by
               international copyright, trademark, and other intellectual
               property laws.
             </p>
@@ -298,7 +298,7 @@ export default function TermsPage() {
           <section className="mb-8">
             <h2 className="text-2xl font-semibold mb-4">10. Indemnification</h2>
             <p className="text-slate-600">
-              You agree to indemnify, defend, and hold harmless ShopClip and its
+              You agree to indemnify, defend, and hold harmless Grabbit and its
               officers, directors, employees, and agents from any claims,
               damages, losses, liabilities, and expenses (including legal fees)
               arising from your use of the Service, violation of these Terms, or
@@ -366,9 +366,9 @@ export default function TermsPage() {
             </p>
             <div className="bg-slate-50 p-4 rounded-lg">
               <p className="text-slate-700">
-                <strong>ShopClip</strong>
+                <strong>Grabbit</strong>
                 <br />
-                Email: legal@shopclip.app
+                Email: legal@grabbitapp.com
               </p>
             </div>
           </section>
@@ -381,7 +381,7 @@ export default function TermsPage() {
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
             <Link href="/" className="flex items-center gap-2">
               <ShoppingBag className="h-6 w-6 text-blue-600" />
-              <span className="font-semibold">ShopClip</span>
+              <span className="font-semibold">Grabbit</span>
             </Link>
             <nav className="flex gap-6 text-sm text-slate-600">
               <Link href="/privacy" className="hover:text-blue-600">
@@ -391,14 +391,14 @@ export default function TermsPage() {
                 Terms of Service
               </Link>
               <Link
-                href="mailto:support@shopclip.app"
+                href="mailto:support@grabbitapp.com"
                 className="hover:text-blue-600"
               >
                 Contact
               </Link>
             </nav>
             <p className="text-sm text-slate-500">
-              &copy; {new Date().getFullYear()} ShopClip
+              &copy; {new Date().getFullYear()} Grabbit
             </p>
           </div>
         </div>

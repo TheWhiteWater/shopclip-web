@@ -109,7 +109,7 @@ function ExtensionAuthContent() {
         </CardHeader>
         <CardContent className="text-center">
           <p className="text-slate-600">
-            This page should be opened from the ShopClip extension.
+            This page should be opened from the Grabbit extension.
           </p>
         </CardContent>
       </Card>
@@ -160,11 +160,11 @@ function ExtensionAuthContent() {
       <CardHeader className="text-center">
         <div className="flex items-center justify-center gap-2 mb-4">
           <ShoppingBag className="h-8 w-8 text-blue-600" />
-          <span className="text-xl font-bold">ShopClip</span>
+          <span className="text-xl font-bold">Grabbit</span>
         </div>
         <CardTitle>Connect Extension</CardTitle>
         <p className="text-sm text-slate-500 mt-2">
-          Sign in to connect your ShopClip extension
+          Sign in to connect your Grabbit extension
         </p>
       </CardHeader>
 
@@ -180,7 +180,7 @@ function ExtensionAuthContent() {
         </Button>
 
         <p className="text-xs text-slate-500 text-center mt-6">
-          Your ShopClip account will be linked to the browser extension.
+          Your Grabbit account will be linked to the browser extension.
         </p>
       </CardContent>
     </Card>

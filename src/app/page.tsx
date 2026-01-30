@@ -37,7 +37,7 @@ export default function HomePage() {
           <div className="container mx-auto px-4 py-4 flex items-center justify-between">
             <div className="flex items-center gap-2">
               <ShoppingBag className="h-8 w-8 text-blue-600" />
-              <span className="text-xl font-bold">ShopClip</span>
+              <span className="text-xl font-bold">Grabbit</span>
             </div>
             <nav className="hidden md:flex items-center gap-6">
               <Link href="#features" className="text-sm hover:text-blue-600">
@@ -132,7 +132,7 @@ export default function HomePage() {
               <CardContent>
                 <p className="text-slate-600">
                   Found a sofa on FB Marketplace AND IKEA? Compare them side-by-side.
-                  ShopClip works on any shopping website.
+                  Grabbit works on any shopping website.
                 </p>
               </CardContent>
             </Card>
@@ -144,7 +144,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-slate-600">
-                  Browse any shopping site. Click the ShopClip button to save.
+                  Browse any shopping site. Click the Grabbit button to save.
                   No copying URLs, no screenshots, no spreadsheets.
                 </p>
               </CardContent>
@@ -170,7 +170,7 @@ export default function HomePage() {
               </CardHeader>
               <CardContent>
                 <p className="text-slate-600">
-                  US, UK, EU, Australia, NZ — ShopClip works on shopping sites
+                  US, UK, EU, Australia, NZ — Grabbit works on shopping sites
                   worldwide. Same tool, any country.
                 </p>
               </CardContent>
@@ -217,7 +217,7 @@ export default function HomePage() {
                 </div>
                 <h3 className="font-semibold mb-2">Install Extension</h3>
                 <p className="text-slate-600 text-sm">
-                  Add ShopClip to your browser. Works on Chrome, Edge, Brave,
+                  Add Grabbit to your browser. Works on Chrome, Edge, Brave,
                   and all Chromium browsers.
                 </p>
               </div>
@@ -228,7 +228,7 @@ export default function HomePage() {
                 <h3 className="font-semibold mb-2">Save From Anywhere</h3>
                 <p className="text-slate-600 text-sm">
                   Browse Facebook Marketplace, Amazon, IKEA, eBay — click
-                  &quot;Save to ShopClip&quot; on any product.
+                  &quot;Save to Grabbit&quot; on any product.
                 </p>
               </div>
               <div className="text-center">
@@ -325,20 +325,20 @@ export default function HomePage() {
             <div className="max-w-3xl mx-auto space-y-6">
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-semibold mb-2">
-                  What websites does ShopClip work with?
+                  What websites does Grabbit work with?
                 </h3>
                 <p className="text-slate-600 text-sm">
-                  ShopClip works on virtually any shopping website including
+                  Grabbit works on virtually any shopping website including
                   Facebook Marketplace, Amazon, eBay, IKEA, Etsy, Craigslist,
-                  and thousands more. If it has a product page, ShopClip can save it.
+                  and thousands more. If it has a product page, Grabbit can save it.
                 </p>
               </div>
               <div className="bg-white p-6 rounded-lg shadow-sm">
                 <h3 className="font-semibold mb-2">
-                  Is ShopClip free to use?
+                  Is Grabbit free to use?
                 </h3>
                 <p className="text-slate-600 text-sm">
-                  Yes! ShopClip is free forever for unlimited saves and basic features.
+                  Yes! Grabbit is free forever for unlimited saves and basic features.
                   Pro features like price tracking and alerts are $4.99/month.
                 </p>
               </div>
@@ -347,7 +347,7 @@ export default function HomePage() {
                   Can I compare items from different websites?
                 </h3>
                 <p className="text-slate-600 text-sm">
-                  Absolutely! That&apos;s ShopClip&apos;s superpower. Found a coffee table on
+                  Absolutely! That&apos;s Grabbit&apos;s superpower. Found a coffee table on
                   Facebook Marketplace and another on IKEA? Save both and compare
                   them side-by-side in your dashboard.
                 </p>
@@ -357,7 +357,7 @@ export default function HomePage() {
                   How does price tracking work?
                 </h3>
                 <p className="text-slate-600 text-sm">
-                  With Pro, ShopClip monitors your saved items and notifies you
+                  With Pro, Grabbit monitors your saved items and notifies you
                   when prices drop. You&apos;ll see price history charts so you know
                   the best time to buy.
                 </p>
@@ -367,7 +367,7 @@ export default function HomePage() {
                   Which browsers are supported?
                 </h3>
                 <p className="text-slate-600 text-sm">
-                  ShopClip works on all Chromium-based browsers: Chrome, Edge,
+                  Grabbit works on all Chromium-based browsers: Chrome, Edge,
                   Brave, Opera, Arc, and Vivaldi. Firefox and Safari coming soon.
                 </p>
               </div>
@@ -381,7 +381,7 @@ export default function HomePage() {
             Ready to Shop Smarter?
           </h2>
           <p className="text-slate-600 mb-8">
-            Join thousands of smart shoppers using ShopClip to save time and money.
+            Join thousands of smart shoppers using Grabbit to save time and money.
           </p>
           <Link href="/login">
             <Button size="lg">Get Started Free</Button>
@@ -394,7 +394,7 @@ export default function HomePage() {
             <div className="flex flex-col md:flex-row justify-between items-center gap-4">
               <div className="flex items-center gap-2">
                 <ShoppingBag className="h-6 w-6 text-blue-600" />
-                <span className="font-semibold">ShopClip</span>
+                <span className="font-semibold">Grabbit</span>
               </div>
               <nav className="flex gap-6 text-sm text-slate-600">
                 <Link href="/privacy" className="hover:text-blue-600">
@@ -403,12 +403,12 @@ export default function HomePage() {
                 <Link href="/terms" className="hover:text-blue-600">
                   Terms of Service
                 </Link>
-                <Link href="mailto:support@shopclip.app" className="hover:text-blue-600">
+                <Link href="mailto:support@grabbitapp.com" className="hover:text-blue-600">
                   Contact
                 </Link>
               </nav>
               <p className="text-sm text-slate-500">
-                © {new Date().getFullYear()} ShopClip. A{' '}
+                © {new Date().getFullYear()} Grabbit. A{' '}
                 <Link href="https://brainops.dev" target="_blank" rel="noopener" className="hover:text-blue-600 underline">
                   BrainOps
                 </Link>{' '}
@@ -416,7 +416,7 @@ export default function HomePage() {
               </p>
             </div>
             <p className="text-xs text-slate-400 text-center mt-8">
-              ShopClip is a user-initiated productivity tool. We help you save what you&apos;re
+              Grabbit is a user-initiated productivity tool. We help you save what you&apos;re
               already viewing in your browser — like Grammarly for text or Honey for coupons.
               We store only your personal browsing data and delete it when you close your account.
             </p>
