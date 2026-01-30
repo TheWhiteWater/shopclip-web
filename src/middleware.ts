@@ -16,6 +16,8 @@ const publicRoutes = [
 const excludedPaths = [
   '/api/health',
   '/api/auth',
+  '/api/mcp',
+  '/.well-known',
   '/_next',
   '/favicon.ico',
   '/robots.txt',
