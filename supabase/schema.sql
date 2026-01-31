@@ -1,4 +1,4 @@
--- ShopClip Database Schema (Universal)
+-- Grabbit Database Schema (Universal)
 -- Run this in Supabase SQL Editor
 
 CREATE EXTENSION IF NOT EXISTS "uuid-ossp";
@@ -77,20 +77,35 @@ CREATE INDEX idx_items_price_value ON items(user_id, price_value);
 CREATE INDEX idx_items_location ON items(user_id, location);
 
 -- ============================================
--- COLLECTIONS TABLE (group items)
+-- COLLECTIONS TABLE (group items) — "Packs"
 -- ============================================
 CREATE TABLE IF NOT EXISTS collections (
   id UUID PRIMARY KEY DEFAULT uuid_generate_v4(),
   user_id UUID NOT NULL REFERENCES users(id) ON DELETE CASCADE,
+
+  -- Basic info
   name TEXT NOT NULL,
+  slug TEXT UNIQUE,                       -- for public URL: grabbit.app/p/{slug}
   description TEXT,
   color TEXT DEFAULT '#4F46E5',           -- for UI
   icon TEXT DEFAULT '📦',
+  cover_image_url TEXT,                   -- for OG preview (auto from first item)
+
+  -- Sharing
+  is_public BOOLEAN DEFAULT FALSE,        -- can be viewed without login
+  views_count INTEGER DEFAULT 0,          -- social proof
+  clones_count INTEGER DEFAULT 0,         -- social proof
+  cloned_from_id UUID REFERENCES collections(id) ON DELETE SET NULL,
+
+  -- Timestamps
   created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
+  updated_at TIMESTAMPTZ DEFAULT NOW(),
+  published_at TIMESTAMPTZ                -- when made public
 );
 
 CREATE INDEX idx_collections_user ON collections(user_id);
+CREATE INDEX idx_collections_slug ON collections(slug) WHERE slug IS NOT NULL;
+CREATE INDEX idx_collections_public ON collections(is_public) WHERE is_public = TRUE;
 
 -- ============================================
 -- COLLECTION_ITEMS (many-to-many)
@@ -151,21 +166,34 @@ CREATE POLICY "Users can insert own items" ON items FOR INSERT WITH CHECK (auth.
 CREATE POLICY "Users can update own items" ON items FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can delete own items" ON items FOR DELETE USING (auth.uid() = user_id);
 
--- Collections
+-- Collections (own + public)
 CREATE POLICY "Users can view own collections" ON collections FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY "Anyone can view public collections" ON collections FOR SELECT USING (is_public = TRUE);
 CREATE POLICY "Users can insert own collections" ON collections FOR INSERT WITH CHECK (auth.uid() = user_id);
 CREATE POLICY "Users can update own collections" ON collections FOR UPDATE USING (auth.uid() = user_id);
 CREATE POLICY "Users can delete own collections" ON collections FOR DELETE USING (auth.uid() = user_id);
 
--- Collection Items
+-- Collection Items (own + public)
 CREATE POLICY "Users can view own collection items" ON collection_items FOR SELECT USING (
   EXISTS (SELECT 1 FROM collections WHERE id = collection_id AND user_id = auth.uid())
+);
+CREATE POLICY "Anyone can view public collection items" ON collection_items FOR SELECT USING (
+  EXISTS (SELECT 1 FROM collections WHERE id = collection_id AND is_public = TRUE)
 );
 CREATE POLICY "Users can insert own collection items" ON collection_items FOR INSERT WITH CHECK (
   EXISTS (SELECT 1 FROM collections WHERE id = collection_id AND user_id = auth.uid())
 );
 CREATE POLICY "Users can delete own collection items" ON collection_items FOR DELETE USING (
   EXISTS (SELECT 1 FROM collections WHERE id = collection_id AND user_id = auth.uid())
+);
+
+-- Items (need to view items in public collections)
+CREATE POLICY "Anyone can view items in public collections" ON items FOR SELECT USING (
+  EXISTS (
+    SELECT 1 FROM collection_items ci
+    JOIN collections c ON ci.collection_id = c.id
+    WHERE ci.item_id = items.id AND c.is_public = TRUE
+  )
 );
 
 -- Price History
@@ -227,5 +255,127 @@ BEGIN
   IF v_tier = 'pro' THEN RETURN TRUE; END IF;
   v_count := get_user_item_count(p_user_id);
   RETURN v_count < 50; -- Free tier: 50 items
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- ============================================
+-- COLLECTION HELPER FUNCTIONS
+-- ============================================
+
+-- Generate unique slug from name
+CREATE OR REPLACE FUNCTION generate_collection_slug(p_name TEXT)
+RETURNS TEXT AS $$
+DECLARE
+  v_slug TEXT;
+  v_base_slug TEXT;
+  v_counter INTEGER := 0;
+BEGIN
+  -- Convert to lowercase, replace spaces with hyphens, remove special chars
+  v_base_slug := lower(regexp_replace(p_name, '[^a-zA-Z0-9\s-]', '', 'g'));
+  v_base_slug := regexp_replace(v_base_slug, '\s+', '-', 'g');
+  v_base_slug := regexp_replace(v_base_slug, '-+', '-', 'g');
+  v_base_slug := trim(both '-' from v_base_slug);
+
+  -- Limit length
+  v_base_slug := left(v_base_slug, 50);
+  v_slug := v_base_slug;
+
+  -- Check uniqueness, add suffix if needed
+  WHILE EXISTS (SELECT 1 FROM collections WHERE slug = v_slug) LOOP
+    v_counter := v_counter + 1;
+    v_slug := v_base_slug || '-' || v_counter;
+  END LOOP;
+
+  RETURN v_slug;
+END;
+$$ LANGUAGE plpgsql;
+
+-- Get collection total price
+CREATE OR REPLACE FUNCTION get_collection_total(p_collection_id UUID)
+RETURNS DECIMAL(12,2) AS $$
+BEGIN
+  RETURN (
+    SELECT COALESCE(SUM(i.price_value), 0)
+    FROM collection_items ci
+    JOIN items i ON ci.item_id = i.id
+    WHERE ci.collection_id = p_collection_id
+      AND i.price_value IS NOT NULL
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Get collection item count
+CREATE OR REPLACE FUNCTION get_collection_item_count(p_collection_id UUID)
+RETURNS INTEGER AS $$
+BEGIN
+  RETURN (
+    SELECT COUNT(*)::INTEGER
+    FROM collection_items
+    WHERE collection_id = p_collection_id
+  );
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Increment view count (for public pages)
+CREATE OR REPLACE FUNCTION increment_collection_views(p_collection_id UUID)
+RETURNS VOID AS $$
+BEGIN
+  UPDATE collections
+  SET views_count = views_count + 1
+  WHERE id = p_collection_id AND is_public = TRUE;
+END;
+$$ LANGUAGE plpgsql SECURITY DEFINER;
+
+-- Clone collection to new user
+CREATE OR REPLACE FUNCTION clone_collection(p_collection_id UUID, p_new_user_id UUID)
+RETURNS UUID AS $$
+DECLARE
+  v_new_collection_id UUID;
+  v_original collections%ROWTYPE;
+BEGIN
+  -- Get original collection
+  SELECT * INTO v_original FROM collections WHERE id = p_collection_id AND is_public = TRUE;
+  IF NOT FOUND THEN
+    RAISE EXCEPTION 'Collection not found or not public';
+  END IF;
+
+  -- Create new collection
+  INSERT INTO collections (user_id, name, description, color, icon, cloned_from_id)
+  VALUES (
+    p_new_user_id,
+    v_original.name || ' (cloned)',
+    v_original.description,
+    v_original.color,
+    v_original.icon,
+    p_collection_id
+  )
+  RETURNING id INTO v_new_collection_id;
+
+  -- Copy items to new user and add to collection
+  -- Note: This creates new item records for the cloning user
+  INSERT INTO items (user_id, platform, item_id, url, title, price, price_value, currency,
+                     condition, description, location, image_url, images)
+  SELECT p_new_user_id, i.platform, i.item_id, i.url, i.title, i.price, i.price_value, i.currency,
+         i.condition, i.description, i.location, i.image_url, i.images
+  FROM collection_items ci
+  JOIN items i ON ci.item_id = i.id
+  WHERE ci.collection_id = p_collection_id
+  ON CONFLICT (user_id, url) DO NOTHING;
+
+  -- Link cloned items to new collection
+  INSERT INTO collection_items (collection_id, item_id)
+  SELECT v_new_collection_id, new_items.id
+  FROM items new_items
+  WHERE new_items.user_id = p_new_user_id
+    AND new_items.url IN (
+      SELECT i.url FROM collection_items ci
+      JOIN items i ON ci.item_id = i.id
+      WHERE ci.collection_id = p_collection_id
+    );
+
+  -- Increment clone count on original
+  UPDATE collections SET clones_count = clones_count + 1 WHERE id = p_collection_id;
+
+  RETURN v_new_collection_id;
 END;
 $$ LANGUAGE plpgsql SECURITY DEFINER;

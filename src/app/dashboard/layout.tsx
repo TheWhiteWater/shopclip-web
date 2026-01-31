@@ -1,6 +1,6 @@
 import { Metadata } from 'next';
 import Link from 'next/link';
-import { ShoppingBag, LayoutDashboard, GitCompare, Settings, LogOut } from 'lucide-react';
+import { ShoppingBag, LayoutDashboard, GitCompare, Settings, LogOut, FolderHeart } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 
 export const metadata: Metadata = {
@@ -28,6 +28,12 @@ export default function DashboardLayout({
               <Button variant="ghost" size="sm" className="gap-2">
                 <LayoutDashboard className="h-4 w-4" />
                 Items
+              </Button>
+            </Link>
+            <Link href="/dashboard/collections">
+              <Button variant="ghost" size="sm" className="gap-2">
+                <FolderHeart className="h-4 w-4" />
+                Collections
               </Button>
             </Link>
             <Link href="/dashboard/compare">
